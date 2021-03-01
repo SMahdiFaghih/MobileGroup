@@ -3,6 +3,8 @@ package com.example.hw1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
