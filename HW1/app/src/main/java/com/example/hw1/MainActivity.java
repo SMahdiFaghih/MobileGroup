@@ -35,5 +35,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), RadarChartActivity.class));
             }
         });
+
+        findViewById(R.id.buttonCandleStickChart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CandleStickChartActivity.class));
+            }
+        });
     }
 }

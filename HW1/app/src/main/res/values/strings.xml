@@ -3,4 +3,5 @@
     <string name="bar_chart">Bar Chart</string>
     <string name="pie_chart">Pie Chart</string>
     <string name="radar_chart">Radar Chart</string>
+    <string name="candle_stick_chart">Candle Stick Chart</string>
 </resources>
