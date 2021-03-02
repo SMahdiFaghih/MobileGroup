@@ -4,4 +4,8 @@
     <string name="pie_chart">Pie Chart</string>
     <string name="radar_chart">Radar Chart</string>
     <string name="candle_stick_chart">Candle Stick Chart</string>
+    <string name="go_to_currency_details_page">Go To Currency Details Page</string>
+    <string name="rows_view">rows view</string>
+    <string name="chart_view">chart view</string>
+    <string name="fetched_data">fetched data</string>
 </resources>
