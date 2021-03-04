@@ -10,4 +10,5 @@
     <string name="fetched_data">fetched data</string>
     <string name="crypto_currency_name">Crypto Currency Name</string>
     <string name="list_of_crypto_currencies">List of Crypto Currencies</string>
+    <string name="load_more">Load More</string>
 </resources>

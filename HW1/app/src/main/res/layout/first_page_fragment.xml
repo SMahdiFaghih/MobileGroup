@@ -16,6 +16,8 @@
             android:layout_height="60dp"
             android:textAllCaps="false"
             android:textSize="18sp"
+            android:clickable="false"
+            android:focusable="false"
             app:backgroundTintMode="multiply"
             app:backgroundTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,30 +27,42 @@
             app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintVertical_bias="0.0" />
 
-    <ScrollView
+    <LinearLayout
             android:id="@+id/scrollView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.0">
+        <ListView
+                android:id="@+id/listView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         <TextView
-                android:id="@+id/textData"
+                android:id="@+id/loadMore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/fetched_data"
+                android:layout_marginTop="10dp"
+                android:text="@string/load_more"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textAlignment="center"
                 android:textSize="24sp"
+                android:gravity="center_horizontal"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.526"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chartView"
+                app:layout_constraintTop_toBottomOf="@+id/listView"
                 app:layout_constraintVertical_bias="0.0" />
-    </ScrollView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
