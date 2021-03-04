@@ -8,4 +8,5 @@
     <string name="rows_view">rows view</string>
     <string name="chart_view">chart view</string>
     <string name="fetched_data">fetched data</string>
+    <string name="crypto_currency_name">Crypto Currency Name</string>
 </resources>
