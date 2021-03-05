@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView textView1 = findViewById(R.id.textView);
+        /*TextView textView1 = findViewById(R.id.textView);
         textView1.setTextColor(Color.BLUE);
 
         findViewById(R.id.goToCurrencyDetailsPage).setOnClickListener(new View.OnClickListener() {
@@ -24,6 +24,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), CurrencyDetailsActivity.class));
             }
-        });
+        });*/
     }
 }
