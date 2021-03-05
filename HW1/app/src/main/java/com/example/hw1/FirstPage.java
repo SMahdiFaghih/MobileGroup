@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -22,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import okhttp3.Call;
@@ -36,11 +39,15 @@ public class FirstPage extends Fragment
     private final int LIMIT = 10;
     private int NextCurrencyToFetchIndex = 1;
 
+    private ListView FirstPageButtonsListView;
+    private ArrayAdapter<String> Adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
+        createSettingsForListView();
         fetchMoreCurrencies();
     }
 
@@ -48,6 +55,13 @@ public class FirstPage extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.first_page_fragment, container, false);
+    }
+
+    private void createSettingsForListView()
+    {
+        FirstPageButtonsListView = Objects.requireNonNull(getView()).findViewById(R.id.listView);
+        ArrayList<String> listItems = new ArrayList<>();
+        Adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listItems);
     }
 
     private void fetchMoreCurrencies()
@@ -92,7 +106,12 @@ public class FirstPage extends Fragment
                             String symbol = currencyData.getString("symbol");
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl);
+
+                            View view = Objects.requireNonNull(getView()).findViewById(R.id.first_page_button);
+
+                            Adapter.add(name + "(" + symbol + ")");
                         }
+                        setAdapter();
                     }
                     catch (JSONException e)
                     {
@@ -111,5 +130,17 @@ public class FirstPage extends Fragment
 
         Bitmap bitmap = BitmapFactory.decodeStream(input);
         return new BitmapDrawable(Resources.getSystem(), bitmap);
+    }
+
+    private void setAdapter()
+    {
+        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                FirstPageButtonsListView.setAdapter(Adapter);
+            }
+        });
     }
 }
