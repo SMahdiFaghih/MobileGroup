@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -46,15 +47,31 @@ public class FirstPage extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-        createSettingsForListView();
-        fetchMoreCurrencies();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.first_page_fragment, container, false);
+        View view = inflater.inflate(R.layout.first_page_fragment, container, false);
+        TextView button = (TextView) view.findViewById(R.id.loadMore);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                fetchMoreCurrencies();
+            }
+        });
+        return view;
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        createSettingsForListView();
+        fetchMoreCurrencies();
     }
 
     private void createSettingsForListView()
@@ -107,13 +124,17 @@ public class FirstPage extends Fragment
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl);
 
-                            View view = Objects.requireNonNull(getView()).findViewById(R.id.first_page_button);
-
-                            Adapter.add(name + "(" + symbol + ")");
+                            getActivity().runOnUiThread(new Runnable()
+                            {
+                                @Override
+                                public void run()
+                                {
+                                    Adapter.add(name + "(" + symbol + ")");
+                                }
+                            });
                         }
                         setAdapter();
-                    }
-                    catch (JSONException e)
+                    } catch (JSONException e)
                     {
                         e.printStackTrace();
                     }
