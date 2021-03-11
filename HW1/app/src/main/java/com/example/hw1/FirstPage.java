@@ -8,13 +8,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Objects;
 
 import okhttp3.Call;
@@ -39,9 +37,6 @@ public class FirstPage extends Fragment
 {
     private final int LIMIT = 10;
     private int NextCurrencyToFetchIndex = 1;
-
-    private ListView FirstPageButtonsListView;
-    private ArrayAdapter<String> Adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -70,15 +65,7 @@ public class FirstPage extends Fragment
     {
         super.onStart();
 
-        createSettingsForListView();
         fetchMoreCurrencies();
-    }
-
-    private void createSettingsForListView()
-    {
-        FirstPageButtonsListView = Objects.requireNonNull(getView()).findViewById(R.id.listView);
-        ArrayList<String> listItems = new ArrayList<>();
-        Adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listItems);
     }
 
     private void fetchMoreCurrencies()
@@ -114,6 +101,7 @@ public class FirstPage extends Fragment
                     {
                         JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                         NextCurrencyToFetchIndex += LIMIT;
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                         for (int i = 0; i < LIMIT; i++)
                         {
                             JSONObject currencyData = (JSONObject) jsonObject.getJSONArray("data").get(i);
@@ -124,16 +112,10 @@ public class FirstPage extends Fragment
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl);
 
-                            getActivity().runOnUiThread(new Runnable()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    Adapter.add(name + "(" + symbol + ")");
-                                }
-                            });
+                            FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name + "(" + symbol + ")", logo);
+                            fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
-                        setAdapter();
+                        fragmentTransaction.commit();
                     } catch (JSONException e)
                     {
                         e.printStackTrace();
@@ -151,17 +133,5 @@ public class FirstPage extends Fragment
 
         Bitmap bitmap = BitmapFactory.decodeStream(input);
         return new BitmapDrawable(Resources.getSystem(), bitmap);
-    }
-
-    private void setAdapter()
-    {
-        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                FirstPageButtonsListView.setAdapter(Adapter);
-            }
-        });
     }
 }
