@@ -1,6 +1,7 @@
 package com.example.hw1;
 
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -47,6 +48,7 @@ public class FirstPageButtonFragment extends Fragment
         View view = inflater.inflate(R.layout.first_page_button_fragment, null);
 
         Button button = (Button) view.findViewById(R.id.crypto_currency_button);
+        //ScaleDrawable scaleDrawable = new ScaleDrawable(logo, 0, 1000, 1000);
         button.setCompoundDrawablesWithIntrinsicBounds(logo, null, null, null);
         button.setText(name);
         button.setOnClickListener(new View.OnClickListener()

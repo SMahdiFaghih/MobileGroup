@@ -132,6 +132,7 @@ public class FirstPage extends Fragment
         InputStream input = connection.getInputStream();
 
         Bitmap bitmap = BitmapFactory.decodeStream(input);
-        return new BitmapDrawable(Resources.getSystem(), bitmap);
+        Bitmap bitmapResized =Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+        return new BitmapDrawable(Resources.getSystem(), bitmapResized);
     }
 }
