@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".CandleChartFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/rowsView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:contentDescription="@string/rows_view"-->
+<!--        android:src="@drawable/rows"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/chartView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:contentDescription="@string/chart_view"-->
+<!--        android:src="@drawable/chart"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/rowsView"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <com.github.mikephil.charting.charts.CandleStickChart
+        android:id="@+id/candle_stick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -112,7 +112,7 @@ public class FirstPage extends Fragment
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl);
 
-                            FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name + "(" + symbol + ")", logo);
+                            FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name + "(" + symbol + ")", logo, symbol);
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
                         fragmentTransaction.commit();

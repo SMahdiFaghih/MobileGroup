@@ -1,5 +1,6 @@
 package com.example.hw1;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
@@ -21,17 +22,19 @@ public class FirstPageButtonFragment extends Fragment
 {
     private String name;
     private Drawable logo;
+    private String symbol;
 
     public FirstPageButtonFragment()
     {
         // Required empty public constructor
     }
 
-    public static FirstPageButtonFragment newInstance(String name, Drawable logo)
+    public static FirstPageButtonFragment newInstance(String name, Drawable logo, String symbol)
     {
         FirstPageButtonFragment fragment = new FirstPageButtonFragment();
         fragment.name = name;
         fragment.logo = logo;
+        fragment.symbol = symbol;
         return fragment;
     }
 
@@ -57,6 +60,11 @@ public class FirstPageButtonFragment extends Fragment
             public void onClick(View v)
             {
                 //todo
+                Intent intent = new Intent(getActivity(), CurrencyDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("symbol", symbol);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         return view;

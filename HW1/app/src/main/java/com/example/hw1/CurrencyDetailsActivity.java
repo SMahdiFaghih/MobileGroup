@@ -25,43 +25,6 @@ public class CurrencyDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_details);
 
-        fetchedData = findViewById(R.id.textData);
 
-        OkHttpClient okHttpClient = new OkHttpClient();
-
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(
-                "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
-        ).newBuilder();
-
-        String url = urlBuilder.build().toString();
-
-        final Request request = new Request.Builder().url(url)
-                .addHeader("X-CMC_PRO_API_KEY", "221937be-173a-4eab-87ad-6050045cf559")
-                .build();
-
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.v("TAG", e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-
-                    String myResponse = response.body().string();
-
-                    CurrencyDetailsActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            fetchedData.setText(myResponse);
-                        }
-                    });
-                }
-            }
-        });
     }
 }
