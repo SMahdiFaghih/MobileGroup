@@ -1,5 +1,6 @@
 package com.example.hw1;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.*;
 import android.graphics.BitmapFactory;
@@ -17,14 +18,19 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 import okhttp3.Call;
@@ -35,28 +41,23 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class FirstPage extends Fragment
-{
+public class FirstPage extends Fragment {
     private final int LIMIT = 10;
     private int NextCurrencyToFetchIndex = 1;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.first_page_fragment, container, false);
         TextView button = (TextView) view.findViewById(R.id.loadMore);
 
-        button.setOnClickListener(new View.OnClickListener()
-        {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 fetchMoreCurrencies();
             }
         });
@@ -64,17 +65,14 @@ public class FirstPage extends Fragment
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
-        if (NextCurrencyToFetchIndex == 1)
-        {
+        if (NextCurrencyToFetchIndex == 1) {
             fetchMoreCurrencies();
         }
     }
 
-    private void fetchMoreCurrencies()
-    {
+    private void fetchMoreCurrencies() {
         ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -84,30 +82,22 @@ public class FirstPage extends Fragment
         String httpUrl = urlBuilder.build().toString();
         final Request request = new Request.Builder().url(httpUrl).addHeader("X-CMC_PRO_API_KEY", "221937be-173a-4eab-87ad-6050045cf559").build();
 
-        okHttpClient.newCall(request).enqueue(new Callback()
-        {
+        okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e)
-            {
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.v("TAG", e.getMessage());
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException
-            {
-                if (!response.isSuccessful())
-                {
+            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
-                }
-                else
-                {
-                    try
-                    {
+                } else {
+                    try {
                         JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                         NextCurrencyToFetchIndex += LIMIT;
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        for (int i = 0; i < LIMIT; i++)
-                        {
+                        for (int i = 0; i < LIMIT; i++) {
                             JSONObject currencyData = (JSONObject) jsonObject.getJSONArray("data").get(i);
                             System.out.println(currencyData);
                             int id = currencyData.getInt("id");
@@ -119,19 +109,17 @@ public class FirstPage extends Fragment
                             FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol);
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
+
                         fragmentTransaction.commit();
-                        getActivity().runOnUiThread(new Runnable()
-                        {
+                        getActivity().runOnUiThread(new Runnable() {
                             @Override
-                            public void run()
-                            {
+                            public void run() {
                                 ProgressBar.instance.progressBar.setVisibility(View.GONE);
                                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             }
                         });
 
-                    } catch (JSONException e)
-                    {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -139,8 +127,7 @@ public class FirstPage extends Fragment
         });
     }
 
-    private Drawable getDrawableLogoFromUrl(String url) throws IOException
-    {
+    private Drawable getDrawableLogoFromUrl(String url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.connect();
         InputStream input = connection.getInputStream();
