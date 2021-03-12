@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.ProgressBar;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -35,24 +34,28 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class FirstPage extends Fragment {
+public class FirstPage extends Fragment
+{
     private final int LIMIT = 10;
     private int NextCurrencyToFetchIndex = 1;
-    private ProgressBar progressBar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.first_page_fragment, container, false);
         TextView button = (TextView) view.findViewById(R.id.loadMore);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 fetchMoreCurrencies();
             }
         });
@@ -60,39 +63,49 @@ public class FirstPage extends Fragment {
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
-        fetchMoreCurrencies();
+        if (NextCurrencyToFetchIndex == 1)
+        {
+            fetchMoreCurrencies();
+        }
     }
 
-    private void fetchMoreCurrencies() {
-        com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
+    private void fetchMoreCurrencies()
+    {
+        ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
+
         OkHttpClient okHttpClient = new OkHttpClient();
-
         String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=" + NextCurrencyToFetchIndex + "&limit=" + LIMIT;
-
         HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(url)).newBuilder();
-
         String httpUrl = urlBuilder.build().toString();
-
         final Request request = new Request.Builder().url(httpUrl).addHeader("X-CMC_PRO_API_KEY", "221937be-173a-4eab-87ad-6050045cf559").build();
 
-        okHttpClient.newCall(request).enqueue(new Callback() {
+        okHttpClient.newCall(request).enqueue(new Callback()
+        {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            public void onFailure(@NotNull Call call, @NotNull IOException e)
+            {
                 Log.v("TAG", e.getMessage());
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                if (!response.isSuccessful()) {
+            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException
+            {
+                if (!response.isSuccessful())
+                {
                     throw new IOException("Unexpected code " + response);
-                } else {
-                    try {
+                }
+                else
+                {
+                    try
+                    {
                         JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                         NextCurrencyToFetchIndex += LIMIT;
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        for (int i = 0; i < LIMIT; i++) {
+                        for (int i = 0; i < LIMIT; i++)
+                        {
                             JSONObject currencyData = (JSONObject) jsonObject.getJSONArray("data").get(i);
                             System.out.println(currencyData);
                             int id = currencyData.getInt("id");
@@ -101,18 +114,21 @@ public class FirstPage extends Fragment {
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl);
 
-                            FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name + "(" + symbol + ")", logo, symbol);
+                            FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol);
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
                         fragmentTransaction.commit();
-                        getActivity().runOnUiThread(new Runnable() {
+                        getActivity().runOnUiThread(new Runnable()
+                        {
                             @Override
-                            public void run() {
-                                com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.GONE);
+                            public void run()
+                            {
+                                ProgressBar.instance.progressBar.setVisibility(View.GONE);
                             }
                         });
 
-                    } catch (JSONException e) {
+                    } catch (JSONException e)
+                    {
                         e.printStackTrace();
                     }
                 }
@@ -120,7 +136,8 @@ public class FirstPage extends Fragment {
         });
     }
 
-    private Drawable getDrawableLogoFromUrl(String url) throws IOException {
+    private Drawable getDrawableLogoFromUrl(String url) throws IOException
+    {
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.connect();
         InputStream input = connection.getInputStream();

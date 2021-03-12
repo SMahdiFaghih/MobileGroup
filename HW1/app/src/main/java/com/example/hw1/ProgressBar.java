@@ -8,30 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ProgressBar extends Fragment {
+public class ProgressBar extends Fragment
+{
     public static ProgressBar instance = null;
     public android.widget.ProgressBar progressBar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_progress_bar, container, false);
         instance = this;
-        progressBar =  (android.widget.ProgressBar) view.findViewById(R.id.pBar);
+        progressBar = (android.widget.ProgressBar) view.findViewById(R.id.pBar);
         return view;
     }
-    public void show (){
-        progressBar.setVisibility(View.VISIBLE);
-    }
-    public void hide (){
-        progressBar.setVisibility(View.GONE);
-    }
-
 }
