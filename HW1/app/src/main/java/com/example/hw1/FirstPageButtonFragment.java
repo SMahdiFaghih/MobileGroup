@@ -44,7 +44,7 @@ public class FirstPageButtonFragment extends Fragment
 
         Button button = (Button) view.findViewById(R.id.crypto_currency_button);
         button.setCompoundDrawablesWithIntrinsicBounds(logo, null, null, null);
-        String buttonText = name + "(" + symbol + ")";
+        String buttonText = name + "(" + symbol + ")" + "      " + "$" + "1000" + "\n\n" + "%" + "2000" + "      " + "%" + "3000" + "      " + "%" + "4000";
         button.setText(buttonText);
         button.setOnClickListener(new View.OnClickListener()
         {
