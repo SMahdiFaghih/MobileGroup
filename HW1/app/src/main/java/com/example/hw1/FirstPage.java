@@ -129,9 +129,6 @@ public class FirstPage extends Fragment
                             }
                         });
 
-
-
-
                     } catch (JSONException e)
                     {
                         e.printStackTrace();

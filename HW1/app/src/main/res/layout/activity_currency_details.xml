@@ -11,5 +11,10 @@
         android:name="com.example.hw1.CandleChartFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <fragment
+        android:name="com.example.hw1.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/secondFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

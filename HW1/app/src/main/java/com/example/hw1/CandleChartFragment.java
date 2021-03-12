@@ -153,6 +153,7 @@ public class CandleChartFragment extends Fragment {
 // پارامتر اول هم نماد سکه مورد نظر خواهد بود
 
     public void getCandles(String symbol, Range range) {
+        com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -198,6 +199,12 @@ public class CandleChartFragment extends Fragment {
                     throw new IOException("Unexpected code " + response);
                 } else {
                     extractCandlesFromResponse(response.body().string(), description);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.GONE);
+                        }
+                    });
                 }
             }
         });
