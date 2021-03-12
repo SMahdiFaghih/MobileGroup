@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
@@ -158,7 +159,7 @@ public class CandleChartFragment extends Fragment {
 
     public void getCandles(String symbol, Range range) {
         com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
-//            candleProgressBar.setVisibility(View.VISIBLE);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -208,7 +209,7 @@ public class CandleChartFragment extends Fragment {
                         @Override
                         public void run() {
                             com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.GONE);
-//                            candleProgressBar.setVisibility(View.GONE);
+                            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         }
                     });
                 }
