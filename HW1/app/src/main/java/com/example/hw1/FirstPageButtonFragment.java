@@ -16,18 +16,26 @@ public class FirstPageButtonFragment extends Fragment
     private String name;
     private Drawable logo;
     private String symbol;
+    private int currentPrice;
+    private int percentChange1H;
+    private int percentChange24H;
+    private int percentChange7D;
 
     public FirstPageButtonFragment()
     {
         // Required empty public constructor
     }
 
-    public static FirstPageButtonFragment newInstance(String name, Drawable logo, String symbol)
+    public static FirstPageButtonFragment newInstance(String name, Drawable logo, String symbol, int currentPrice, int percentChange1H, int percentChange24H, int percentChange7D)
     {
         FirstPageButtonFragment fragment = new FirstPageButtonFragment();
         fragment.name = name;
         fragment.logo = logo;
         fragment.symbol = symbol;
+        fragment.currentPrice = currentPrice;
+        fragment.percentChange1H = percentChange1H;
+        fragment.percentChange24H = percentChange24H;
+        fragment.percentChange7D = percentChange7D;
         return fragment;
     }
 
@@ -44,7 +52,7 @@ public class FirstPageButtonFragment extends Fragment
 
         Button button = (Button) view.findViewById(R.id.crypto_currency_button);
         button.setCompoundDrawablesWithIntrinsicBounds(logo, null, null, null);
-        String buttonText = name + "(" + symbol + ")" + "      " + "$" + "1000" + "\n\n" + "%" + "2000" + "      " + "%" + "3000" + "      " + "%" + "4000";
+        String buttonText = name + "(" + symbol + ")" + "      " + "$" + currentPrice + "\n\n" + "%" + percentChange1H + "      " + "%" + percentChange24H + "      " + "%" + percentChange7D;
         button.setText(buttonText);
         button.setOnClickListener(new View.OnClickListener()
         {

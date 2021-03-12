@@ -113,6 +113,12 @@ public class FirstPage extends Fragment
                             int id = currencyData.getInt("id");
                             String name = currencyData.getString("name");
                             String symbol = currencyData.getString("symbol");
+                            JSONObject quote = currencyData.getJSONObject("quote");
+                            JSONObject USD = quote.getJSONObject("USD");
+                            int price = (int) USD.getDouble("price");
+                            int percentChange1H = (int) USD.getDouble("percent_change_1h");
+                            int percentChange24H = (int) USD.getDouble("percent_change_24h");
+                            int percentChange7D = (int) USD.getDouble("percent_change_7d");
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl);
 
