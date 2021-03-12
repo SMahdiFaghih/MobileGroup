@@ -15,6 +15,6 @@
         android:name="com.example.hw1.ProgressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/secondFragment" />
+        android:id="@+id/CandleProgressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

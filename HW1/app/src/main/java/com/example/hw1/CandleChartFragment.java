@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.Legend;
@@ -59,6 +60,7 @@ public class CandleChartFragment extends Fragment {
     private String mParam2;
     private CandleStickChart candleStickChart;
     private String currentRange = "weekly";
+    private ProgressBar candleProgressBar;
 
     public enum Range {
         weekly,
@@ -102,10 +104,12 @@ public class CandleChartFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_candle_chart, container, false);
         candleStickChart = view.findViewById(R.id.candle_stick);
-
+        candleProgressBar = getActivity().findViewById(R.id.CandleProgressBar);
+//        candleProgressBar = view.findViewById(R.id.CandleProgressBar);
         Bundle bundle = getActivity().getIntent().getExtras();
 
         Button weekly = view.findViewById(R.id.weeklyView);
+
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +158,7 @@ public class CandleChartFragment extends Fragment {
 
     public void getCandles(String symbol, Range range) {
         com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
+//            candleProgressBar.setVisibility(View.VISIBLE);
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -203,6 +208,7 @@ public class CandleChartFragment extends Fragment {
                         @Override
                         public void run() {
                             com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.GONE);
+//                            candleProgressBar.setVisibility(View.GONE);
                         }
                     });
                 }
