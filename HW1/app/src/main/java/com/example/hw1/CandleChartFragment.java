@@ -188,7 +188,7 @@ public class CandleChartFragment extends Fragment {
         String url = urlBuilder.build().toString();
 
         final Request request = new Request.Builder().url(url)
-                .addHeader("X-CoinAPI-Key", "9B96CF08-945C-4D0A-8532-D577191AC7A6")
+                .addHeader("X-CoinAPI-Key", "2C63C54B-6EAA-4D1B-8A08-B197309F3A90")
                 .build();
 
         okHttpClient.newCall(request).enqueue(new Callback() {
