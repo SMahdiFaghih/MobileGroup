@@ -270,15 +270,20 @@ public class CandleChartFragment extends Fragment {
             set1.setNeutralColor(Color.LTGRAY);
             set1.setDrawValues(false);
 
-
             // create a data object with the datasets
             CandleData chartData = new CandleData(set1);
 
-
             // set data
-            candleStickChart.setData(chartData);
-            candleStickChart.getDescription().setText(description);
-            candleStickChart.invalidate();
+            getActivity().runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    candleStickChart.setData(chartData);
+                    candleStickChart.getDescription().setText(description);
+                    candleStickChart.invalidate();
+                }
+            });
 
             fragmentTransaction.commit();
         } catch (JSONException e) {
