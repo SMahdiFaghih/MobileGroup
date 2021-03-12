@@ -68,8 +68,9 @@ public class FirstPage extends Fragment
     public void onStart()
     {
         super.onStart();
-
-        fetchMoreCurrencies();
+        if (NextCurrencyToFetchIndex == 1) {
+            fetchMoreCurrencies();
+        }
     }
 
     private void fetchMoreCurrencies()
