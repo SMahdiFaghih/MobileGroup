@@ -9,30 +9,31 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/rowsView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:contentDescription="@string/rows_view"-->
-<!--        android:src="@drawable/rows"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <Button
+        android:id="@+id/weeklyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/weekly"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/chartView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:contentDescription="@string/chart_view"-->
-<!--        android:src="@drawable/chart"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/rowsView"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <Button
+        android:id="@+id/monthlyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/monthly"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@+id/weeklyView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.github.mikephil.charting.charts.CandleStickChart
         android:id="@+id/candle_stick"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="85dp"
+        app:layout_constraintTop_toBottomOf="@+id/monthlyView"
+        tools:layout_editor_absoluteX="10dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

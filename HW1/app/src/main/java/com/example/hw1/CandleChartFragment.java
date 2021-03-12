@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.Legend;
@@ -57,6 +58,7 @@ public class CandleChartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private CandleStickChart candleStickChart;
+    private String currentRange = "weekly";
 
     public enum Range {
         weekly,
@@ -99,14 +101,43 @@ public class CandleChartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_candle_chart, container, false);
+        candleStickChart = view.findViewById(R.id.candle_stick);
+
+        Bundle bundle = getActivity().getIntent().getExtras();
+
+        Button weekly = view.findViewById(R.id.weeklyView);
+        weekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!currentRange.equals("weekly")) {
+                    currentRange = "weekly";
+                    getCandles(bundle.getString("symbol"), Range.weekly);
+                }
+            }
+        });
+
+        Button monthly = view.findViewById(R.id.monthlyView);
+        monthly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!currentRange.equals("monthly")) {
+                    currentRange = "monthly";
+                    getCandles(bundle.getString("symbol"), Range.oneMonth);
+                }
+            }
+        });
+
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         Bundle bundle = getActivity().getIntent().getExtras();
 
         getCandles(bundle.getString("symbol"), Range.weekly);
-
-        candleStickChart = view.findViewById(R.id.candle_stick);
-
-        return view;
     }
 
     public String getCurrentDate() {
