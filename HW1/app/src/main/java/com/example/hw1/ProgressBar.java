@@ -20,7 +20,8 @@ public class ProgressBar extends Fragment
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         SetProgressBar(getView());
     }
@@ -29,15 +30,13 @@ public class ProgressBar extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_progress_bar, container, false);
-//        instance = this;
-//        progressBar = (android.widget.ProgressBar) view.findViewById(R.id.pBar);
         SetProgressBar(view);
         return view;
     }
+
     private void SetProgressBar(View view)
     {
         instance = this;
         progressBar = (android.widget.ProgressBar) view.findViewById(R.id.pBar);
     }
-
 }
