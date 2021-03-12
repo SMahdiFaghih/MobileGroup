@@ -17,13 +17,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class CurrencyDetailsActivity extends AppCompatActivity {
-    private TextView fetchedData;
-
+public class CurrencyDetailsActivity extends AppCompatActivity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_details);
     }
-
 }

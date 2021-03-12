@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.ProgressBar;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -39,7 +38,6 @@ public class FirstPage extends Fragment
 {
     private final int LIMIT = 10;
     private int NextCurrencyToFetchIndex = 1;
-    private  ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -68,23 +66,20 @@ public class FirstPage extends Fragment
     public void onStart()
     {
         super.onStart();
-        if (NextCurrencyToFetchIndex == 1) {
+        if (NextCurrencyToFetchIndex == 1)
+        {
             fetchMoreCurrencies();
         }
     }
 
     private void fetchMoreCurrencies()
     {
-        com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
+        ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
 
         OkHttpClient okHttpClient = new OkHttpClient();
-
         String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=" + NextCurrencyToFetchIndex + "&limit=" + LIMIT;
-
         HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(url)).newBuilder();
-
         String httpUrl = urlBuilder.build().toString();
-
         final Request request = new Request.Builder().url(httpUrl).addHeader("X-CMC_PRO_API_KEY", "221937be-173a-4eab-87ad-6050045cf559").build();
 
         okHttpClient.newCall(request).enqueue(new Callback()
@@ -119,14 +114,16 @@ public class FirstPage extends Fragment
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl);
 
-                            FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name + "(" + symbol + ")", logo, symbol);
+                            FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol);
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
                         fragmentTransaction.commit();
-                        getActivity().runOnUiThread(new Runnable() {
+                        getActivity().runOnUiThread(new Runnable()
+                        {
                             @Override
-                            public void run() {
-                                com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.GONE);
+                            public void run()
+                            {
+                                ProgressBar.instance.progressBar.setVisibility(View.GONE);
                             }
                         });
 
@@ -146,7 +143,7 @@ public class FirstPage extends Fragment
         InputStream input = connection.getInputStream();
 
         Bitmap bitmap = BitmapFactory.decodeStream(input);
-        Bitmap bitmapResized =Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
         return new BitmapDrawable(Resources.getSystem(), bitmapResized);
     }
 }
