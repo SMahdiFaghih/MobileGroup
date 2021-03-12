@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
@@ -75,6 +76,7 @@ public class FirstPage extends Fragment
     private void fetchMoreCurrencies()
     {
         ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         OkHttpClient okHttpClient = new OkHttpClient();
         String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=" + NextCurrencyToFetchIndex + "&limit=" + LIMIT;
@@ -124,6 +126,7 @@ public class FirstPage extends Fragment
                             public void run()
                             {
                                 ProgressBar.instance.progressBar.setVisibility(View.GONE);
+                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             }
                         });
 
