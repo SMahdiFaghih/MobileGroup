@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -33,10 +34,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
 public class FirstPage extends Fragment
 {
     private final int LIMIT = 10;
     private int NextCurrencyToFetchIndex = 1;
+    private  ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -49,6 +52,7 @@ public class FirstPage extends Fragment
     {
         View view = inflater.inflate(R.layout.first_page_fragment, container, false);
         TextView button = (TextView) view.findViewById(R.id.loadMore);
+
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -70,6 +74,8 @@ public class FirstPage extends Fragment
 
     private void fetchMoreCurrencies()
     {
+        com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
+
         OkHttpClient okHttpClient = new OkHttpClient();
 
         String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=" + NextCurrencyToFetchIndex + "&limit=" + LIMIT;
@@ -116,6 +122,16 @@ public class FirstPage extends Fragment
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
                         fragmentTransaction.commit();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.GONE);
+                            }
+                        });
+
+
+
+
                     } catch (JSONException e)
                     {
                         e.printStackTrace();
