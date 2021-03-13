@@ -21,9 +21,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -112,9 +115,12 @@ public class FirstPage extends Fragment
                         JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                         NextCurrencyToFetchIndex += LIMIT;
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        JSONArray toBeSaved = new JSONArray();
+
                         for (int i = 0; i < LIMIT; i++)
                         {
                             JSONObject currencyData = (JSONObject) jsonObject.getJSONArray("data").get(i);
+                            JSONObject fileData = new JSONObject();
                             System.out.println(currencyData);
                             int id = currencyData.getInt("id");
                             String name = currencyData.getString("name");
@@ -125,13 +131,22 @@ public class FirstPage extends Fragment
                             int percentChange1H = (int) USD.getDouble("percent_change_1h");
                             int percentChange24H = (int) USD.getDouble("percent_change_24h");
                             int percentChange7D = (int) USD.getDouble("percent_change_7d");
+                            fileData.put("id",id);
+                            fileData.put("price",price);
+                            fileData.put("percentChange1H",percentChange1H);
+                            fileData.put("percentChange24H",percentChange24H);
+                            fileData.put("percentChange7D",percentChange7D);
+                            toBeSaved.put(fileData);
+
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl);
 
                             FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol, price, percentChange1H, percentChange24H, percentChange7D);
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
-
+                        System.out.println(toBeSaved.toString());
+                        System.out.println("*************************");
+                        writeFileOnInternalStorage(getContext(),"chachedData",toBeSaved.toString());
                         fragmentTransaction.commit();
                         getActivity().runOnUiThread(new Runnable()
                         {
@@ -152,6 +167,24 @@ public class FirstPage extends Fragment
         });
     }
 
+    private void writeFileOnInternalStorage(Context mcoContext, String sFileName, String sBody){
+//        File dir = new File(mcoContext.getFilesDir(), "mydir");
+//        if(!dir.exists()){
+//            dir.mkdir();
+//        }
+
+        try {
+            File gpxfile = new File("C:\\Users\\lenovo\\Desktop", sFileName);
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append(sBody);
+            writer.flush();
+            writer.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println(mcoContext.getFilesDir());
+        System.out.println("+++++++++++++++++++++++++++");
+    }
     private Drawable getDrawableLogoFromUrl(String url) throws IOException
     {
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
