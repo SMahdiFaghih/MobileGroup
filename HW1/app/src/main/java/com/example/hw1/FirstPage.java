@@ -94,56 +94,15 @@ public class FirstPage extends Fragment {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.v("TAG", e.getMessage());
-
-                File file = new File(getContext().getFilesDir().getPath() + "/mydir/chachedData");
-                StringBuilder text = new StringBuilder();
-                try {
-                    BufferedReader br = new BufferedReader(new FileReader(file));
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        text.append(line);
-                    }
-                    br.close();
-                } catch (FileNotFoundException fileNotFoundException) {
-                    fileNotFoundException.printStackTrace();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-
-                try {
-                    JSONObject jsnobject = new JSONObject(String.valueOf(text));
-                    JSONArray jsonArray = jsnobject.getJSONArray("data");
-                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject explrObject = jsonArray.getJSONObject(i);
-                        System.out.println(explrObject.toString());
-                        System.out.println("/*/*/*/*");
-                        int id = explrObject.getInt("id");
-                        String name = explrObject.getString("name");
-                        String symbol = explrObject.getString("symbol");
-                        int price = (int) explrObject.getDouble("price");
-                        int percentChange1H = (int) explrObject.getDouble("percentChange1H");
-                        int percentChange24H = (int) explrObject.getDouble("percentChange24H");
-                        int percentChange7D = (int) explrObject.getDouble("percentChange7D");
-                        File mypath=new File(getContext().getFilesDir() + "/mydir","image"+ id);
-                        Drawable logo = Drawable.createFromPath(mypath.toString());
-
-                        FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol, price, percentChange1H, percentChange24H, percentChange7D);
-                        fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
-                    }
-                    fragmentTransaction.commit();
-                } catch (JSONException jsonException) {
-                    jsonException.printStackTrace();
-                }
-
-
-
+                getCachedData();
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
                 if (!response.isSuccessful()) {
+                    getCachedData();
                     throw new IOException("Unexpected code " + response);
+
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
@@ -175,13 +134,13 @@ public class FirstPage extends Fragment {
                             temp.put(fileData);
 
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
-                            Drawable logo = getDrawableLogoFromUrl(logoUrl,id);
+                            Drawable logo = getDrawableLogoFromUrl(logoUrl, id);
 
                             FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol, price, percentChange1H, percentChange24H, percentChange7D);
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
 
-                        toBeSaved.put("data",temp);
+                        toBeSaved.put("data", temp);
                         System.out.println(toBeSaved.toString());
                         System.out.println("*************************");
                         writeFileOnInternalStorage(getContext(), "chachedData", toBeSaved.toString());
@@ -200,6 +159,56 @@ public class FirstPage extends Fragment {
                 }
             }
         });
+    }
+
+    private void getCachedData() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ProgressBar.instance.progressBar.setVisibility(View.GONE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
+        File file = new File(getContext().getFilesDir().getPath() + "/mydir/chachedData");
+        StringBuilder text = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+            }
+            br.close();
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+        try {
+            JSONObject jsnobject = new JSONObject(String.valueOf(text));
+            JSONArray jsonArray = jsnobject.getJSONArray("data");
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject explrObject = jsonArray.getJSONObject(i);
+                System.out.println(explrObject.toString());
+                System.out.println("/*/*/*/*");
+                int id = explrObject.getInt("id");
+                String name = explrObject.getString("name");
+                String symbol = explrObject.getString("symbol");
+                int price = (int) explrObject.getDouble("price");
+                int percentChange1H = (int) explrObject.getDouble("percentChange1H");
+                int percentChange24H = (int) explrObject.getDouble("percentChange24H");
+                int percentChange7D = (int) explrObject.getDouble("percentChange7D");
+                File mypath = new File(getContext().getFilesDir() + "/mydir", "image" + id);
+                Drawable logo = Drawable.createFromPath(mypath.toString());
+
+                FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol, price, percentChange1H, percentChange24H, percentChange7D);
+                fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
+            }
+            fragmentTransaction.commit();
+        } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
+        }
     }
 
     private void writeFileOnInternalStorage(Context mcoContext, String sFileName, String sBody) {
@@ -222,27 +231,26 @@ public class FirstPage extends Fragment {
     }
 
     private void saveBitmapToFile(String fileName, Bitmap bm,
-                             Bitmap.CompressFormat format, int quality) {
+                                  Bitmap.CompressFormat format, int quality) {
 
         File dir = new File(getContext().getFilesDir(), "mydir");
         if (!dir.exists()) {
             dir.mkdir();
         }
 
-        File imageFile = new File(dir,fileName);
+        File imageFile = new File(dir, fileName);
 
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(imageFile);
 
-            bm.compress(format,quality,fos);
+            bm.compress(format, quality, fos);
 
             fos.close();
             System.out.println(imageFile);
             System.out.println("111111111");
-        }
-        catch (IOException e) {
-            Log.e("app",e.getMessage());
+        } catch (IOException e) {
+            Log.e("app", e.getMessage());
             if (fos != null) {
                 try {
                     fos.close();
@@ -252,14 +260,15 @@ public class FirstPage extends Fragment {
             }
         }
     }
-    private Drawable getDrawableLogoFromUrl(String url,int id) throws IOException {
+
+    private Drawable getDrawableLogoFromUrl(String url, int id) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.connect();
         InputStream input = connection.getInputStream();
 
         Bitmap bitmap = BitmapFactory.decodeStream(input);
         Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
-        saveBitmapToFile("image" +id,bitmap,Bitmap.CompressFormat.PNG,100);
+        saveBitmapToFile("image" + id, bitmapResized, Bitmap.CompressFormat.PNG, 100);
         return new BitmapDrawable(Resources.getSystem(), bitmapResized);
     }
 }
