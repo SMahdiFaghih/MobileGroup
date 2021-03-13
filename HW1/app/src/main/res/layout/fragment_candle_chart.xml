@@ -21,10 +21,28 @@
         android:id="@+id/monthlyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/monthly"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
+        android:text="@string/monthly"
         app:layout_constraintStart_toEndOf="@+id/weeklyView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/candleChartCurrencyIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/monthlyView"
+        app:layout_constraintEnd_toStartOf="@+id/candleChartCurrencySymbol"
+        app:layout_constraintStart_toEndOf="@+id/monthlyView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/candleChartCurrencySymbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/monthlyView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/candleChartCurrencyIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.github.mikephil.charting.charts.CandleStickChart

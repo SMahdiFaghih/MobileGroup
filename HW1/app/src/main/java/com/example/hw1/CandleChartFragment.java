@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.Legend;
@@ -59,6 +60,7 @@ public class CandleChartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private CandleStickChart candleStickChart;
+    private TextView currencyName;
     private String currentRange = "weekly";
     private ProgressBar candleProgressBar;
 
@@ -105,6 +107,7 @@ public class CandleChartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_candle_chart, container, false);
         candleStickChart = view.findViewById(R.id.candle_stick);
         candleProgressBar = getActivity().findViewById(R.id.CandleProgressBar);
+        currencyName = view.findViewById(R.id.candleChartCurrencySymbol);
 //        candleProgressBar = view.findViewById(R.id.CandleProgressBar);
         Bundle bundle = getActivity().getIntent().getExtras();
 
@@ -161,6 +164,8 @@ public class CandleChartFragment extends Fragment {
 //            candleProgressBar.setVisibility(View.VISIBLE);
 
         OkHttpClient okHttpClient = new OkHttpClient();
+
+        currencyName.setText(symbol);
 
         String miniUrl;
         final String description;
