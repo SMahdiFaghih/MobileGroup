@@ -108,7 +108,18 @@ public class FirstPage extends Fragment {
                     ioException.printStackTrace();
                 }
 
-                JSONArray data = new JSONArray();
+                try {
+                    JSONObject jsnobject = new JSONObject(String.valueOf(text));
+                    JSONArray jsonArray = jsnobject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject explrObject = jsonArray.getJSONObject(i);
+                        System.out.println(explrObject.toString());
+                        System.out.println("/*/*/*/*");
+                    }
+                } catch (JSONException jsonException) {
+                    jsonException.printStackTrace();
+                }
+
 
             }
 
@@ -121,7 +132,8 @@ public class FirstPage extends Fragment {
                         JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                         NextCurrencyToFetchIndex += LIMIT;
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        JSONArray toBeSaved = new JSONArray();
+                        JSONObject toBeSaved = new JSONObject();
+                        JSONArray temp = new JSONArray();
 
                         for (int i = 0; i < LIMIT; i++) {
                             JSONObject currencyData = (JSONObject) jsonObject.getJSONArray("data").get(i);
@@ -141,7 +153,7 @@ public class FirstPage extends Fragment {
                             fileData.put("percentChange1H", percentChange1H);
                             fileData.put("percentChange24H", percentChange24H);
                             fileData.put("percentChange7D", percentChange7D);
-                            toBeSaved.put(fileData);
+                            temp.put(fileData);
 
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl);
@@ -149,6 +161,7 @@ public class FirstPage extends Fragment {
                             FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol, price, percentChange1H, percentChange24H, percentChange7D);
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
+                        toBeSaved.put("data",temp);
                         System.out.println(toBeSaved.toString());
                         System.out.println("*************************");
                         writeFileOnInternalStorage(getContext(), "chachedData", toBeSaved.toString());
