@@ -48,13 +48,11 @@ public class FirstPage extends Fragment
 {
     private final int LIMIT = 10;
     private int NextCurrencyToFetchIndex = 1;
-    private JSONObject fileData;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        fileData = new JSONObject();
     }
 
     @Override
@@ -144,6 +142,7 @@ public class FirstPage extends Fragment
                         for (int i = 0; i < LIMIT; i++)
                         {
                             JSONObject currencyData = (JSONObject) jsonObject.getJSONArray("data").get(i);
+                            JSONObject fileData = new JSONObject();
                             System.out.println(currencyData);
                             int id = currencyData.getInt("id");
                             String name = currencyData.getString("name");
