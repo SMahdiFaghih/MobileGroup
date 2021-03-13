@@ -34,8 +34,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Objects;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -48,11 +46,15 @@ public class FirstPage extends Fragment
 {
     private final int LIMIT = 10;
     private int NextCurrencyToFetchIndex = 1;
+    private JSONObject toBeSaved;
+    private JSONArray tempData;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        toBeSaved = new JSONObject();
+        tempData = new JSONArray();
     }
 
     @Override
@@ -79,6 +81,22 @@ public class FirstPage extends Fragment
         if (NextCurrencyToFetchIndex == 1)
         {
             getThreadToFetchData();
+        }
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        try
+        {
+            toBeSaved.put("data", tempData);
+            System.out.println(toBeSaved.toString());
+            System.out.println("*************************");
+            writeFileOnInternalStorage(getContext(), "cachedData", toBeSaved.toString());
+        } catch (JSONException e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -136,8 +154,6 @@ public class FirstPage extends Fragment
                         JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                         NextCurrencyToFetchIndex += LIMIT;
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        JSONObject toBeSaved = new JSONObject();
-                        JSONArray temp = new JSONArray();
 
                         for (int i = 0; i < LIMIT; i++)
                         {
@@ -160,7 +176,7 @@ public class FirstPage extends Fragment
                             fileData.put("percentChange1H", percentChange1H);
                             fileData.put("percentChange24H", percentChange24H);
                             fileData.put("percentChange7D", percentChange7D);
-                            temp.put(fileData);
+                            tempData.put(fileData);
 
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
                             Drawable logo = getDrawableLogoFromUrl(logoUrl, id);
@@ -169,10 +185,6 @@ public class FirstPage extends Fragment
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
 
-                        toBeSaved.put("data", temp);
-                        System.out.println(toBeSaved.toString());
-                        System.out.println("*************************");
-                        writeFileOnInternalStorage(getContext(), "chachedData", toBeSaved.toString());
                         fragmentTransaction.commit();
                         getActivity().runOnUiThread(new Runnable()
                         {
@@ -204,7 +216,7 @@ public class FirstPage extends Fragment
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         });
-        File file = new File(getContext().getFilesDir().getPath() + "/mydir/chachedData");
+        File file = new File(getContext().getFilesDir().getPath() + "/mydir/cachedData");
         StringBuilder text = new StringBuilder();
         try
         {
