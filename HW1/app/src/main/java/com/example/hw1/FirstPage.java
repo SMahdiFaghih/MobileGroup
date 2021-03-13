@@ -121,17 +121,10 @@ public class FirstPage extends Fragment {
                         int id = explrObject.getInt("id");
                         String name = explrObject.getString("name");
                         String symbol = explrObject.getString("symbol");
-                        JSONObject quote = explrObject.getJSONObject("quote");
-                        JSONObject USD = quote.getJSONObject("USD");
-                        int price = (int) USD.getDouble("price");
-                        int percentChange1H = (int) USD.getDouble("percent_change_1h");
-                        int percentChange24H = (int) USD.getDouble("percent_change_24h");
-                        int percentChange7D = (int) USD.getDouble("percent_change_7d");
-                        String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
-
-
-                        //path to /data/data/yourapp/app_data/dirName
-
+                        int price = (int) explrObject.getDouble("price");
+                        int percentChange1H = (int) explrObject.getDouble("percentChange1H");
+                        int percentChange24H = (int) explrObject.getDouble("percentChange24H");
+                        int percentChange7D = (int) explrObject.getDouble("percentChange7D");
                         File mypath=new File(getContext().getFilesDir() + "/mydir","image"+ id);
                         Drawable logo = Drawable.createFromPath(mypath.toString());
 
@@ -172,6 +165,8 @@ public class FirstPage extends Fragment {
                             int percentChange1H = (int) USD.getDouble("percent_change_1h");
                             int percentChange24H = (int) USD.getDouble("percent_change_24h");
                             int percentChange7D = (int) USD.getDouble("percent_change_7d");
+                            fileData.put("name", name);
+                            fileData.put("symbol", symbol);
                             fileData.put("id", id);
                             fileData.put("price", price);
                             fileData.put("percentChange1H", percentChange1H);
