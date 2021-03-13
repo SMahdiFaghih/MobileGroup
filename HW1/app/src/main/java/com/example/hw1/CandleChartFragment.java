@@ -45,110 +45,80 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CandleChartFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CandleChartFragment extends Fragment {
+public class CandleChartFragment extends Fragment
+{
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private CandleStickChart candleStickChart;
     private TextView currencyName;
     private String currentRange = "weekly";
     private ProgressBar candleProgressBar;
 
-    public enum Range {
-        weekly,
-        oneMonth,
-    }
-
-    public CandleChartFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CandleChartFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CandleChartFragment newInstance(String param1, String param2) {
-        CandleChartFragment fragment = new CandleChartFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public enum Range
+    {
+        weekly, oneMonth,
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_candle_chart, container, false);
         candleStickChart = view.findViewById(R.id.candle_stick);
         candleProgressBar = getActivity().findViewById(R.id.CandleProgressBar);
         currencyName = view.findViewById(R.id.candleChartCurrencySymbol);
-//        candleProgressBar = view.findViewById(R.id.CandleProgressBar);
+        //candleProgressBar = view.findViewById(R.id.CandleProgressBar);
         Bundle bundle = getActivity().getIntent().getExtras();
 
         Button weekly = view.findViewById(R.id.weeklyView);
 
-        weekly.setOnClickListener(new View.OnClickListener() {
+        weekly.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                if (!currentRange.equals("weekly")) {
+            public void onClick(View v)
+            {
+                if (!currentRange.equals("weekly"))
+                {
                     currentRange = "weekly";
-                    getCandles(bundle.getString("symbol"), Range.weekly);
+                    getThreadToGetCandles(bundle.getString("symbol"), Range.weekly);
                 }
             }
         });
 
         Button monthly = view.findViewById(R.id.monthlyView);
-        monthly.setOnClickListener(new View.OnClickListener() {
+        monthly.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                if (!currentRange.equals("monthly")) {
+            public void onClick(View v)
+            {
+                if (!currentRange.equals("monthly"))
+                {
                     currentRange = "monthly";
-                    getCandles(bundle.getString("symbol"), Range.oneMonth);
+                    getThreadToGetCandles(bundle.getString("symbol"), Range.oneMonth);
                 }
             }
         });
-
 
         return view;
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
 
         Bundle bundle = getActivity().getIntent().getExtras();
 
-        getCandles(bundle.getString("symbol"), Range.weekly);
+        getThreadToGetCandles(bundle.getString("symbol"), Range.weekly);
     }
 
-    public String getCurrentDate() {
+    public String getCurrentDate()
+    {
         Date c = Calendar.getInstance().getTime();
         System.out.println("Current time => " + c);
 
@@ -156,63 +126,82 @@ public class CandleChartFragment extends Fragment {
         return df.format(c);
     }
 
-// برای دریافت کندل های روزانه به مدت یک هفته پارامتر دوم را "هفته ای" بدهید و
-// برای دریافت کندل های روزانه به مدت یک ماه پارامتر دوم را "یک ماه" بدهید
-// پارامتر اول هم نماد سکه مورد نظر خواهد بود
+    private void getThreadToGetCandles(String symbol, Range range)
+    {
+        MyExecuter.getExecutor().execute(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                getCandles(symbol, range);
+            }
+        });
+    }
 
-    public void getCandles(String symbol, Range range) {
-        com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    // برای دریافت کندل های روزانه به مدت یک هفته پارامتر دوم را "هفته ای" بدهید و
+    // برای دریافت کندل های روزانه به مدت یک ماه پارامتر دوم را "یک ماه" بدهید
+    // پارامتر اول هم نماد سکه مورد نظر خواهد بود
+
+    public void getCandles(String symbol, Range range)
+    {
+        getActivity().runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                currencyName.setText(symbol);
+            }
+        });
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
-        currencyName.setText(symbol);
-
         String miniUrl;
         final String description;
-        switch (range) {
+        switch (range)
+        {
 
             case weekly:
                 miniUrl = "period_id=1DAY".concat("&time_end=".concat(getCurrentDate()).concat("&limit=7"));
                 description = "Daily candles from now";
                 break;
-
             case oneMonth:
                 miniUrl = "period_id=1DAY".concat("&time_end=".concat(getCurrentDate()).concat("&limit=30"));
                 description = "Daily candles from now";
                 break;
-
             default:
                 miniUrl = "";
                 description = "";
-
         }
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("https://rest.coinapi.io/v1/ohlcv/".concat(symbol).concat("/USD/history?".concat(miniUrl)))
-                .newBuilder();
-
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("https://rest.coinapi.io/v1/ohlcv/".concat(symbol).concat("/USD/history?".concat(miniUrl))).newBuilder();
         String url = urlBuilder.build().toString();
-
-        final Request request = new Request.Builder().url(url)
-                .addHeader("X-CoinAPI-Key", "2C63C54B-6EAA-4D1B-8A08-B197309F3A90")
-                .build();
-
-        okHttpClient.newCall(request).enqueue(new Callback() {
+        final Request request = new Request.Builder().url(url).addHeader("X-CoinAPI-Key", "2C63C54B-6EAA-4D1B-8A08-B197309F3A90").build();
+        okHttpClient.newCall(request).enqueue(new Callback()
+        {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(Call call, IOException e)
+            {
                 Log.v("TAG", e.getMessage());
             }
 
             @Override
-            public void onResponse(Call call, final Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException
+            {
 
-                if (!response.isSuccessful()) {
+                if (!response.isSuccessful())
+                {
                     throw new IOException("Unexpected code " + response);
-                } else {
+                }
+                else
+                {
                     extractCandlesFromResponse(response.body().string(), description);
-                    getActivity().runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable()
+                    {
                         @Override
-                        public void run() {
+                        public void run()
+                        {
                             com.example.hw1.ProgressBar.instance.progressBar.setVisibility(View.GONE);
                             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         }
@@ -223,8 +212,10 @@ public class CandleChartFragment extends Fragment {
 
     }
 
-    private void extractCandlesFromResponse(String data, String description) {
-        try {
+    private void extractCandlesFromResponse(String data, String description)
+    {
+        try
+        {
             System.out.println(data);
             JSONArray candlesArrayDate = new JSONArray(data);
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -255,14 +246,14 @@ public class CandleChartFragment extends Fragment {
             l.setEnabled(true);
 
             ArrayList<CandleEntry> yValsCandleStick = new ArrayList<>();
-            for (int i = 0; i < candlesArrayDate.length(); i++) {
+            for (int i = 0; i < candlesArrayDate.length(); i++)
+            {
                 JSONObject candleData = (JSONObject) candlesArrayDate.get(i);
                 Float candlePriceOpen = Float.parseFloat(candleData.getString("price_open"));
                 Float candlePriceClose = Float.parseFloat(candleData.getString("price_close"));
                 Float candlePriceHigh = Float.parseFloat(candleData.getString("price_high"));
                 Float candlePriceLow = Float.parseFloat(candleData.getString("price_low"));
-                yValsCandleStick.add(new CandleEntry(i, candlePriceHigh, candlePriceLow,
-                        candlePriceOpen, candlePriceClose));
+                yValsCandleStick.add(new CandleEntry(i, candlePriceHigh, candlePriceLow, candlePriceOpen, candlePriceClose));
             }
 
             CandleDataSet set1 = new CandleDataSet(yValsCandleStick, "DataSet");
@@ -292,7 +283,8 @@ public class CandleChartFragment extends Fragment {
             });
 
             fragmentTransaction.commit();
-        } catch (JSONException e) {
+        } catch (JSONException e)
+        {
             e.printStackTrace();
         }
     }
