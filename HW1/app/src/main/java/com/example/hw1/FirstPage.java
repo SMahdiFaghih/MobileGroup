@@ -241,8 +241,9 @@ public class FirstPage extends Fragment
                 int percentChange1H = (int) explrObject.getDouble("percentChange1H");
                 int percentChange24H = (int) explrObject.getDouble("percentChange24H");
                 int percentChange7D = (int) explrObject.getDouble("percentChange7D");
-                File mypath = new File(getContext().getFilesDir() + "/mydir", "image" + id);
-                Drawable logo = Drawable.createFromPath(mypath.toString());
+                File myPath = new File(getContext().getFilesDir() + "/mydir", "image" + id);
+                Bitmap bitmap = BitmapFactory.decodeFile(myPath.toString());
+                Drawable logo = scaleLogoOnReadFromFile(bitmap);
 
                 FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol, price, percentChange1H, percentChange24H, percentChange7D);
                 fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
@@ -323,6 +324,12 @@ public class FirstPage extends Fragment
         Bitmap bitmap = BitmapFactory.decodeStream(input);
         Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
         saveBitmapToFile("image" + id, bitmapResized, Bitmap.CompressFormat.PNG, 100);
+        return new BitmapDrawable(Resources.getSystem(), bitmapResized);
+    }
+
+    private Drawable scaleLogoOnReadFromFile(Bitmap bitmap)
+    {
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
         return new BitmapDrawable(Resources.getSystem(), bitmapResized);
     }
 }
