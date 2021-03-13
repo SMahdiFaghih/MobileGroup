@@ -25,7 +25,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,28 +47,23 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class FirstPage extends Fragment
-{
+public class FirstPage extends Fragment {
     private final int LIMIT = 10;
     private int NextCurrencyToFetchIndex = 1;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.first_page_fragment, container, false);
         TextView button = (TextView) view.findViewById(R.id.loadMore);
 
-        button.setOnClickListener(new View.OnClickListener()
-        {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 fetchMoreCurrencies();
             }
         });
@@ -73,17 +71,14 @@ public class FirstPage extends Fragment
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
-        if (NextCurrencyToFetchIndex == 1)
-        {
+        if (NextCurrencyToFetchIndex == 1) {
             fetchMoreCurrencies();
         }
     }
 
-    private void fetchMoreCurrencies()
-    {
+    private void fetchMoreCurrencies() {
         ProgressBar.instance.progressBar.setVisibility(View.VISIBLE);
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -93,32 +88,42 @@ public class FirstPage extends Fragment
         String httpUrl = urlBuilder.build().toString();
         final Request request = new Request.Builder().url(httpUrl).addHeader("X-CMC_PRO_API_KEY", "221937be-173a-4eab-87ad-6050045cf559").build();
 
-        okHttpClient.newCall(request).enqueue(new Callback()
-        {
+        okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e)
-            {
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.v("TAG", e.getMessage());
+
+                File file = new File(getContext().getFilesDir().getPath() + "/mydir/chachedData");
+                StringBuilder text = new StringBuilder();
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        text.append(line);
+                    }
+                    br.close();
+                } catch (FileNotFoundException fileNotFoundException) {
+                    fileNotFoundException.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
+                JSONArray data = new JSONArray();
+
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException
-            {
-                if (!response.isSuccessful())
-                {
+            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
-                }
-                else
-                {
-                    try
-                    {
+                } else {
+                    try {
                         JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                         NextCurrencyToFetchIndex += LIMIT;
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                         JSONArray toBeSaved = new JSONArray();
 
-                        for (int i = 0; i < LIMIT; i++)
-                        {
+                        for (int i = 0; i < LIMIT; i++) {
                             JSONObject currencyData = (JSONObject) jsonObject.getJSONArray("data").get(i);
                             JSONObject fileData = new JSONObject();
                             System.out.println(currencyData);
@@ -131,11 +136,11 @@ public class FirstPage extends Fragment
                             int percentChange1H = (int) USD.getDouble("percent_change_1h");
                             int percentChange24H = (int) USD.getDouble("percent_change_24h");
                             int percentChange7D = (int) USD.getDouble("percent_change_7d");
-                            fileData.put("id",id);
-                            fileData.put("price",price);
-                            fileData.put("percentChange1H",percentChange1H);
-                            fileData.put("percentChange24H",percentChange24H);
-                            fileData.put("percentChange7D",percentChange7D);
+                            fileData.put("id", id);
+                            fileData.put("price", price);
+                            fileData.put("percentChange1H", percentChange1H);
+                            fileData.put("percentChange24H", percentChange24H);
+                            fileData.put("percentChange7D", percentChange7D);
                             toBeSaved.put(fileData);
 
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
@@ -146,20 +151,17 @@ public class FirstPage extends Fragment
                         }
                         System.out.println(toBeSaved.toString());
                         System.out.println("*************************");
-                        writeFileOnInternalStorage(getContext(),"chachedData",toBeSaved.toString());
+                        writeFileOnInternalStorage(getContext(), "chachedData", toBeSaved.toString());
                         fragmentTransaction.commit();
-                        getActivity().runOnUiThread(new Runnable()
-                        {
+                        getActivity().runOnUiThread(new Runnable() {
                             @Override
-                            public void run()
-                            {
+                            public void run() {
                                 ProgressBar.instance.progressBar.setVisibility(View.GONE);
                                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             }
                         });
 
-                    } catch (JSONException e)
-                    {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -167,26 +169,26 @@ public class FirstPage extends Fragment
         });
     }
 
-    private void writeFileOnInternalStorage(Context mcoContext, String sFileName, String sBody){
-//        File dir = new File(mcoContext.getFilesDir(), "mydir");
-//        if(!dir.exists()){
-//            dir.mkdir();
-//        }
+    private void writeFileOnInternalStorage(Context mcoContext, String sFileName, String sBody) {
+        File dir = new File(mcoContext.getFilesDir(), "mydir");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
 
         try {
-            File gpxfile = new File("C:\\Users\\lenovo\\Desktop", sFileName);
+            File gpxfile = new File(dir, sFileName);
             FileWriter writer = new FileWriter(gpxfile);
             writer.append(sBody);
             writer.flush();
             writer.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println(mcoContext.getFilesDir());
         System.out.println("+++++++++++++++++++++++++++");
     }
-    private Drawable getDrawableLogoFromUrl(String url) throws IOException
-    {
+
+    private Drawable getDrawableLogoFromUrl(String url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.connect();
         InputStream input = connection.getInputStream();
