@@ -1,6 +1,7 @@
 package com.example.hw1;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.*;
 import android.graphics.BitmapFactory;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -111,14 +113,36 @@ public class FirstPage extends Fragment {
                 try {
                     JSONObject jsnobject = new JSONObject(String.valueOf(text));
                     JSONArray jsonArray = jsnobject.getJSONArray("data");
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject explrObject = jsonArray.getJSONObject(i);
                         System.out.println(explrObject.toString());
                         System.out.println("/*/*/*/*");
+                        int id = explrObject.getInt("id");
+                        String name = explrObject.getString("name");
+                        String symbol = explrObject.getString("symbol");
+                        JSONObject quote = explrObject.getJSONObject("quote");
+                        JSONObject USD = quote.getJSONObject("USD");
+                        int price = (int) USD.getDouble("price");
+                        int percentChange1H = (int) USD.getDouble("percent_change_1h");
+                        int percentChange24H = (int) USD.getDouble("percent_change_24h");
+                        int percentChange7D = (int) USD.getDouble("percent_change_7d");
+                        String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
+
+
+                        //path to /data/data/yourapp/app_data/dirName
+
+                        File mypath=new File(getContext().getFilesDir() + "/mydir","image"+ id);
+                        Drawable logo = Drawable.createFromPath(mypath.toString());
+
+                        FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol, price, percentChange1H, percentChange24H, percentChange7D);
+                        fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                     }
+                    fragmentTransaction.commit();
                 } catch (JSONException jsonException) {
                     jsonException.printStackTrace();
                 }
+
 
 
             }
@@ -156,11 +180,12 @@ public class FirstPage extends Fragment {
                             temp.put(fileData);
 
                             String logoUrl = "https://s2.coinmarketcap.com/static/img/coins/64x64/" + id + ".png";
-                            Drawable logo = getDrawableLogoFromUrl(logoUrl);
+                            Drawable logo = getDrawableLogoFromUrl(logoUrl,id);
 
                             FirstPageButtonFragment firstPageButtonFragment = FirstPageButtonFragment.newInstance(name, logo, symbol, price, percentChange1H, percentChange24H, percentChange7D);
                             fragmentTransaction.add(R.id.listView, firstPageButtonFragment, "fragment" + i);
                         }
+
                         toBeSaved.put("data",temp);
                         System.out.println(toBeSaved.toString());
                         System.out.println("*************************");
@@ -201,13 +226,45 @@ public class FirstPage extends Fragment {
         System.out.println("+++++++++++++++++++++++++++");
     }
 
-    private Drawable getDrawableLogoFromUrl(String url) throws IOException {
+    private void saveBitmapToFile(String fileName, Bitmap bm,
+                             Bitmap.CompressFormat format, int quality) {
+
+        File dir = new File(getContext().getFilesDir(), "mydir");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        File imageFile = new File(dir,fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(imageFile);
+
+            bm.compress(format,quality,fos);
+
+            fos.close();
+            System.out.println(imageFile);
+            System.out.println("111111111");
+        }
+        catch (IOException e) {
+            Log.e("app",e.getMessage());
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+    }
+    private Drawable getDrawableLogoFromUrl(String url,int id) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.connect();
         InputStream input = connection.getInputStream();
 
         Bitmap bitmap = BitmapFactory.decodeStream(input);
         Bitmap bitmapResized = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+        saveBitmapToFile("image" +id,bitmap,Bitmap.CompressFormat.PNG,100);
         return new BitmapDrawable(Resources.getSystem(), bitmapResized);
     }
 }
