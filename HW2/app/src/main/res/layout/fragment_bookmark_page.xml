@@ -9,11 +9,11 @@
     <Button
             android:id="@+id/title"
             android:text="@string/bookmark"
-            android:background="#04325e"
+            android:background="#000000"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:textAllCaps="false"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:clickable="false"
             android:focusable="false"
             app:backgroundTintMode="multiply"
