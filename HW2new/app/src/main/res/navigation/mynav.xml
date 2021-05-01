@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mynav"
+    app:startDestination="@id/bookmarkFragment">
+
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.example.hw2new.BookmarkFragment"
+        android:label="BookmarkFragment" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.hw2new.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/setting"
+        android:name="com.example.hw2new.setting"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>
