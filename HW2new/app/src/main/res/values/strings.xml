@@ -4,4 +4,5 @@
     <string name="bookmark">Bookmark</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="setting">SettingPage</string>
+    <string name="trash_bin_icon">TrashBinIcon</string>
 </resources>
