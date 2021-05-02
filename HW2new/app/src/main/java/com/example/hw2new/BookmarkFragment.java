@@ -13,16 +13,12 @@ import android.widget.TextView;
 
 public class BookmarkFragment extends Fragment
 {
-    private String locationName;
-    private String x;
-    private String y;
+    private Location location;
 
-    public static BookmarkFragment newInstance(String locationName, String x, String y)
+    public static BookmarkFragment newInstance(Location location)
     {
         BookmarkFragment fragment = new BookmarkFragment();
-        fragment.locationName = locationName;
-        fragment.x = x;
-        fragment.y = y;
+        fragment.location = location;
         return fragment;
     }
 
@@ -53,18 +49,18 @@ public class BookmarkFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                BookmarkManager.getInstance().deleteLocation(locationName);
+                BookmarkManager.getInstance().deleteLocation(location.getLocationName());
             }
         });
 
         TextView locationNameTextView = (TextView) view.findViewById(R.id.location_name);
-        locationNameTextView.setText(locationName);
+        locationNameTextView.setText(location.getLocationName());
 
         TextView xTextView = (TextView) view.findViewById(R.id.location_x);
-        xTextView.setText(x);
+        xTextView.setText(location.getX());
 
         TextView yTextView = (TextView) view.findViewById(R.id.location_y);
-        yTextView.setText(y);
+        yTextView.setText(location.getY());
 
         return view;
     }
