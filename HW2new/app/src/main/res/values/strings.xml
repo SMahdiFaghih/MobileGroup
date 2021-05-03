@@ -4,4 +4,5 @@
     <string name="bookmark">Bookmark</string>
     <string name="setting">SettingPage</string>
     <string name="trash_bin_icon">TrashBinIcon</string>
+    <string name="search_hint">Search</string>
 </resources>
