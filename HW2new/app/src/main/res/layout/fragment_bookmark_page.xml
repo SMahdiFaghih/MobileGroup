@@ -41,7 +41,7 @@
             <!-- Add search bar-->
 
             <LinearLayout
-                    android:id="@+id/bookmarksListView"
+                    android:id="@+id/bookmarksList"
                     android:layout_width="fill_parent"
                     android:layout_marginTop="50dp"
                     android:layout_height="0dp"
