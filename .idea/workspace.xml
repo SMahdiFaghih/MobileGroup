@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17e0b16d-4704-4e81-ad0d-25152fee8667" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/HW2new/app/src/main/java/com/example/hw2new/Setting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HW2new/app/src/main/res/layout/activity_setting.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW2new/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW2new/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW2new/app/src/main/java/com/example/hw2new/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/HW2new/app/src/main/java/com/example/hw2new/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW2new/app/src/main/java/com/example/hw2new/setting.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW2new/app/src/main/res/drawable/ic_baseline_home_24.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW2new/app/src/main/res/drawable/ic_baseline_home_24.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW2new/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW2new/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW2new/app/src/main/res/layout/fragment_navigation_bar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW2new/app/src/main/res/layout/fragment_navigation_bar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW2new/app/src/main/res/layout/fragment_setting.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW2new/app/src/main/res/navigation/mynav.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW2new/app/src/main/res/navigation/mynav.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW2new/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HW2new/app/src/main/res/values/strings.xml" afterDir="false" />
-    </list>
+    <list default="true" id="17e0b16d-4704-4e81-ad0d-25152fee8667" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
