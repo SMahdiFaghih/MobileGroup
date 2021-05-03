@@ -22,4 +22,11 @@ public class BookmarkPageFragment extends Fragment
     {
         return inflater.inflate(R.layout.fragment_bookmark_page, container, false);
     }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        //TODO
+    }
 }

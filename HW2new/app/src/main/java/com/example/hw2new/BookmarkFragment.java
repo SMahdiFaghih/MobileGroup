@@ -39,7 +39,7 @@ public class BookmarkFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                //Show this on map
+                //TODO show this bookmark on map
             }
         });
 

@@ -32,7 +32,7 @@ public class BookmarkManager
         values.put(FeedReaderContract.FeedEntry.COLUMN_X, x);
         values.put(FeedReaderContract.FeedEntry.COLUMN_Y, y);
 
-        long newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE, null, values);
+        db.insert(FeedReaderContract.FeedEntry.TABLE, null, values);
     }
 
     public ArrayList<Location> getAllLocations()
@@ -55,15 +55,22 @@ public class BookmarkManager
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return locations;
     }
 
     public void deleteLocation(String locationName)
     {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         String selection = FeedReaderContract.FeedEntry.COLUMN_NAME + " = ?";
         String[] selectionArgs = { locationName };
-        int deletedRows = db.delete(FeedReaderContract.FeedEntry.TABLE, selection, selectionArgs);
+        db.delete(FeedReaderContract.FeedEntry.TABLE, selection, selectionArgs);
+    }
+
+    public void deleteAllLocations()
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(FeedReaderContract.FeedEntry.TABLE,null,null);
     }
 
     public static BookmarkManager getInstance()
