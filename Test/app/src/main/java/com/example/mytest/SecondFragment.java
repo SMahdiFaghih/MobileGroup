@@ -1,5 +1,7 @@
 package com.example.mytest;
 
+import android.graphics.Color;
+import android.graphics.PointF;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,11 +10,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
+import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 import com.mapbox.mapboxsdk.location.LocationComponentOptions;
@@ -22,6 +28,8 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
 
 import java.util.List;
 
@@ -84,10 +92,11 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
         mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
         return view;
     }
 
-        @Override
+    @Override
     public void onResume() {
         super.onResume();
         mapView.onResume();
@@ -159,6 +168,23 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
         mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
+                mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
+                    @Override
+                    public boolean onMapClick(@NonNull LatLng point) {
+                        System.out.println("******************");
+                        System.out.println(point);
+                        SymbolManager symbolManager = new SymbolManager(mapView, mapboxMap, style);
+                        symbolManager.deleteAll();
+                        symbolManager.setIconAllowOverlap(true);
+                        symbolManager.setTextAllowOverlap(true);
+                        SymbolOptions symbolOptions = new SymbolOptions()
+                                .withLatLng(point)
+                                .withIconImage(String.valueOf(R.drawable.ic_baseline_location_on_24))
+                                .withIconSize(1.3f);
+                        symbolManager.create(symbolOptions);
+                        return false;
+                    }
+                });
                 enableLocationComponent(style);
             }
         });
@@ -182,7 +208,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
 
             locationComponent.setCameraMode(CameraMode.TRACKING);
 
-            locationComponent.setRenderMode(RenderMode.NORMAL);
+            locationComponent.setRenderMode(RenderMode.COMPASS);
         } else {
             permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(getActivity());
