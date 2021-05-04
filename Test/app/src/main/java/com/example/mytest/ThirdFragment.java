@@ -49,19 +49,18 @@ public class ThirdFragment extends Fragment  {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Are You Sure to Clear");
-        builder.setTitle("clear bookmark");
+        builder.setTitle("Clear Bookmark");
 
-        builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(),"yes",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Yes",Toast.LENGTH_LONG).show();
             }
         });
-        builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(),"no",Toast.LENGTH_LONG).show();
-                
+                Toast.makeText(getActivity(),"No",Toast.LENGTH_LONG).show();
             }
         });
         builder.create().show();
