@@ -15,55 +15,60 @@ import android.widget.Toast;
 
 import static android.content.ContentValues.TAG;
 
-public class ThirdFragment extends Fragment  {
+public class ThirdFragment extends Fragment
+{
     private Button clearBtn;
 
-
-    public ThirdFragment() {
+    public ThirdFragment()
+    {
 
     }
 
-
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view  = inflater.inflate(R.layout.fragment_third, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        View view = inflater.inflate(R.layout.fragment_third, container, false);
         clearBtn = view.findViewById(R.id.button);
-        clearBtn.setOnClickListener(new View.OnClickListener() {
+        clearBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 createDialog();
             }
         });
         return view;
     }
 
-
-    private void createDialog() {
-
+    private void createDialog()
+    {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Are You Sure to Clear");
         builder.setTitle("Clear Bookmark");
 
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(),"Yes",Toast.LENGTH_LONG).show();
+            public void onClick(DialogInterface dialog, int which)
+            {
+                BookmarkManager.getInstance().deleteAllLocations();
+                Toast.makeText(getActivity(), "All your bookmarks deleted", Toast.LENGTH_LONG).show();
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(),"No",Toast.LENGTH_LONG).show();
+            public void onClick(DialogInterface dialog, int which)
+            {
+                Toast.makeText(getActivity(), "No", Toast.LENGTH_LONG).show();
             }
         });
         builder.create().show();
-
     }
 }

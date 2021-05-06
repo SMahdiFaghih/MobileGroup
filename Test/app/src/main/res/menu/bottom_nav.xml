@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="bookmark" android:icon="@drawable/ic_baseline_bookmark_24" android:id="@+id/firstFragment"/>
+    <item android:title="bookmark" android:icon="@drawable/ic_baseline_bookmark_24" android:id="@+id/fragment_bookmark_page"/>
     <item android:title="map" android:icon="@drawable/ic_baseline_location_on_24" android:id="@+id/secondFragment"/>
     <item android:title="setting"  android:icon="@drawable/ic_baseline_settings_24" android:id="@+id/thirdFragment"/>
 </menu>
