@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/firstFragment">
+    app:startDestination="@id/fragment_bookmark">
 
     <fragment
-        android:id="@+id/firstFragment"
-        android:name="com.example.mytest.FirstFragment"
-        android:label="fragment_first"
-        tools:layout="@layout/fragment_first" />
+        android:id="@+id/fragment_bookmark"
+        android:name="com.example.mytest.BookmarkPageFragment"
+        android:label="fragment_bookmark_page"
+        tools:layout="@layout/fragment_bookmark_page" />
     <fragment
         android:id="@+id/secondFragment"
         android:name="com.example.mytest.SecondFragment"
