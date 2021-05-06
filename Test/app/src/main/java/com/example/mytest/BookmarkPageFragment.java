@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 public class BookmarkPageFragment extends Fragment
@@ -33,12 +34,15 @@ public class BookmarkPageFragment extends Fragment
             @Override
             public boolean onQueryTextSubmit(String query)
             {
+                System.out.println("Searched query: " + query);
+                showSearchedLocations(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText)
             {
+                System.out.println("Searched Text" + newText);
                 showSearchedLocations(searchView.getQuery().toString());
                 return true;
             }
@@ -78,7 +82,7 @@ public class BookmarkPageFragment extends Fragment
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         for (Location location : locations)
         {
-            if (location.getLocationName().contains(searchedString))
+            if (location.getLocationName().toLowerCase().contains(searchedString.toLowerCase()))
             {
                 BookmarkFragment bookmarkFragment = BookmarkFragment.newInstance(location);
                 fragmentTransaction.add(R.id.bookmarksList, bookmarkFragment, "fragment " + location.getLocationName());
