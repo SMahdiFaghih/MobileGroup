@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">HW2</string>
-    <string name="mapbox_access_token">pk.eyJ1IjoiaGVzYW5naGFzZW1pIiwiYSI6ImNrbzVwOTQ3ejFlOGYyd2x5NjNwaGd3NDIifQ.7pu53UfIXciwQpCAE4sC5w</string>
-    <string name="bookmark">Bookmark</string>
-    <string name="setting">SettingPage</string>
-    <string name="trash_bin_icon">TrashBinIcon</string>
-    <string name="search_hint">Search</string>
-</resources>
