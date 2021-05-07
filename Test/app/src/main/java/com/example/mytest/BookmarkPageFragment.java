@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import java.io.Console;
 import java.util.ArrayList;
 
 public class BookmarkPageFragment extends Fragment
@@ -70,11 +69,19 @@ public class BookmarkPageFragment extends Fragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         for (Location location : locations)
         {
-            if (!fragmentManager.getFragments().contains(fragmentManager.findFragmentByTag("fragment " + location.getLocationName())))
-            {
-                BookmarkFragment bookmarkFragment = BookmarkFragment.newInstance(location);
-                fragmentTransaction.add(R.id.bookmarksList, bookmarkFragment, "fragment " + location.getLocationName());
-            }
+            BookmarkFragment bookmarkFragment = BookmarkFragment.newInstance(location);
+            fragmentTransaction.add(R.id.bookmarksList, bookmarkFragment, "fragment " + location.getLocationName());
+        }
+        fragmentTransaction.commit();
+    }
+
+    private void showHiddenBookmarks()
+    {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        for (Location location : locations)
+        {
+            fragmentTransaction.show(fragmentManager.findFragmentByTag("fragment " + location.getLocationName()));
         }
         fragmentTransaction.commit();
     }
@@ -83,7 +90,7 @@ public class BookmarkPageFragment extends Fragment
     {
         if (searchedString == null || searchedString.equals(""))
         {
-            showAllBookmarks();
+            showHiddenBookmarks();
             return;
         }
 
@@ -96,7 +103,7 @@ public class BookmarkPageFragment extends Fragment
                 Fragment fragment = fragmentManager.findFragmentByTag("fragment " + location.getLocationName());
                 if (fragment != null)
                 {
-                    fragmentTransaction.remove(fragment);
+                    fragmentTransaction.hide(fragment);
                 }
             }
         }
