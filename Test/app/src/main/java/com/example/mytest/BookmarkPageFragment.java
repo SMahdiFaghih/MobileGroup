@@ -3,6 +3,7 @@ package com.example.mytest;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -15,12 +16,14 @@ import java.util.ArrayList;
 
 public class BookmarkPageFragment extends Fragment
 {
+    private static BookmarkPageFragment instance;
     private ArrayList<Location> locations;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        instance = this;
     }
 
     @Override
@@ -62,11 +65,15 @@ public class BookmarkPageFragment extends Fragment
     {
         locations = BookmarkManager.getInstance().getAllLocations();
 
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         for (Location location : locations)
         {
-            BookmarkFragment bookmarkFragment = BookmarkFragment.newInstance(location);
-            fragmentTransaction.add(R.id.bookmarksList, bookmarkFragment, "fragment " + location.getLocationName());
+            if (!fragmentManager.getFragments().contains(fragmentManager.findFragmentByTag("fragment " + location.getLocationName())))
+            {
+                BookmarkFragment bookmarkFragment = BookmarkFragment.newInstance(location);
+                fragmentTransaction.add(R.id.bookmarksList, bookmarkFragment, "fragment " + location.getLocationName());
+            }
         }
         fragmentTransaction.commit();
     }
@@ -78,15 +85,32 @@ public class BookmarkPageFragment extends Fragment
             showAllBookmarks();
             return;
         }
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         for (Location location : locations)
         {
-            if (location.getLocationName().toLowerCase().contains(searchedString.toLowerCase()))
+            if (!location.getLocationName().toLowerCase().contains(searchedString.toLowerCase()))
             {
-                BookmarkFragment bookmarkFragment = BookmarkFragment.newInstance(location);
-                fragmentTransaction.add(R.id.bookmarksList, bookmarkFragment, "fragment " + location.getLocationName());
+                Fragment fragment = fragmentManager.findFragmentByTag("fragment " + location.getLocationName());
+                if (fragment != null)
+                {
+                    fragmentTransaction.remove(fragment);
+                }
             }
         }
         fragmentTransaction.commit();
+    }
+
+    public void deleteBookmark(Fragment fragment)
+    {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(fragment).commit();
+    }
+
+    public static BookmarkPageFragment getInstance()
+    {
+        return instance;
     }
 }
