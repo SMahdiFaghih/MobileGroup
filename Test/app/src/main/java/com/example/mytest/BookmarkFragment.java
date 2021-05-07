@@ -44,6 +44,8 @@ public class BookmarkFragment extends Fragment
             public void onClick(View v)
             {
                 //TODO show this bookmark on map
+//                SecondFragment.newInstance(location.getX(), location.getY());
+                SecondFragment.getInstance().setPosition(location.getX(), location.getY());
                 getActivity().findViewById(R.id.secondFragment).callOnClick();
             }
         });

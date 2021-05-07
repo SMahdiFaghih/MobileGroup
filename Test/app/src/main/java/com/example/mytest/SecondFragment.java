@@ -56,8 +56,8 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String x;
+    private String y;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -67,26 +67,31 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param x Parameter 1.
+     * @param y Parameter 2.
      * @return A new instance of fragment SecondFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SecondFragment newInstance(String param1, String param2) {
+    public static SecondFragment newInstance(String x, String y) {
         SecondFragment fragment = new SecondFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, x);
+        args.putString(ARG_PARAM2, y);
         fragment.setArguments(args);
         return fragment;
     }
 
+    private static SecondFragment secondFragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (secondFragment == null) {
+            secondFragment = this;
+        }
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            x = getArguments().getString(ARG_PARAM1);
+            y = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -94,6 +99,8 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
     private PermissionsManager permissionsManager;
     private MapboxMap mapboxMap;
     private ImageButton getLocation;
+    private static String lat;
+    private static String lng;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,6 +113,18 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
         mapView.getMapAsync(this);
 
         return view;
+    }
+
+    public void setPosition(String x, String y) {
+        lat = x;
+        lng = y;
+    }
+
+    public static SecondFragment getInstance() {
+        if (secondFragment == null) {
+            secondFragment = new SecondFragment();
+        }
+        return secondFragment;
     }
 
     @Override
@@ -183,8 +202,6 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
                 mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                     @Override
                     public boolean onMapClick(@NonNull LatLng point) {
-                        System.out.println("******************");
-                        System.out.println(point);
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle("Create bookmark");
                         builder.setMessage("Lat: " + point.getLatitude() + "\n" + "Long: " + point.getLongitude());
@@ -209,15 +226,6 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
                             }
                         });
                         builder.create().show();
-//                        SymbolManager symbolManager = new SymbolManager(mapView, mapboxMap, style);
-//                        symbolManager.deleteAll();
-//                        symbolManager.setIconAllowOverlap(true);
-//                        symbolManager.setTextAllowOverlap(true);
-//                        SymbolOptions symbolOptions = new SymbolOptions()
-//                                .withLatLng(point)
-//                                .withIconImage(String.valueOf(R.drawable.ic_baseline_location_on_24))
-//                                .withIconSize(1.3f);
-//                        symbolManager.create(symbolOptions);
                         return false;
                     }
                 });
@@ -228,8 +236,12 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
                     mapboxMap.addMarker(new MarkerOptions()
                             .position(new LatLng(Double.parseDouble(bookmarks.get(i).getX()),
                                     Double.parseDouble(bookmarks.get(i).getY())))
-                    .title(bookmarks.get(i).getLocationName()));
+                            .title(bookmarks.get(i).getLocationName()));
                 }
+
+                System.out.println("******");
+                System.out.println(lat);
+                System.out.println(lng);
 
                 getLocation.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -238,7 +250,16 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
                     }
                 });
 
-                enableLocationComponent(style);
+                if (lat == null) {
+                    enableLocationComponent(style);
+                } else {
+                    CameraPosition cameraPosition = new CameraPosition.Builder()
+                            .target(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)))
+                            .zoom(10)
+                            .build();
+                    mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
+                            1000);
+                }
             }
         });
     }
