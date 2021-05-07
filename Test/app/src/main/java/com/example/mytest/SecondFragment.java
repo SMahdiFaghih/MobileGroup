@@ -1,5 +1,7 @@
 package com.example.mytest;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -7,9 +9,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -173,15 +177,39 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
                     public boolean onMapClick(@NonNull LatLng point) {
                         System.out.println("******************");
                         System.out.println(point);
-                        SymbolManager symbolManager = new SymbolManager(mapView, mapboxMap, style);
-                        symbolManager.deleteAll();
-                        symbolManager.setIconAllowOverlap(true);
-                        symbolManager.setTextAllowOverlap(true);
-                        SymbolOptions symbolOptions = new SymbolOptions()
-                                .withLatLng(point)
-                                .withIconImage(String.valueOf(R.drawable.ic_baseline_location_on_24))
-                                .withIconSize(1.3f);
-                        symbolManager.create(symbolOptions);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Create bookmark");
+                        builder.setMessage("Lat: " + point.getLatitude() + "\n" + "Long: " + point.getLongitude());
+                        // Set up the input
+                        final EditText input = new EditText(getActivity());
+                        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                        input.setInputType(InputType.TYPE_CLASS_TEXT);
+                        builder.setView(input);
+                        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                BookmarkManager.getInstance()
+                                        .insertNewLocation(input.getText().toString(),
+                                                Double.toString(point.getLatitude()),
+                                                Double.toString(point.getLongitude()));
+                                Toast.makeText(getActivity(), "Your bookmark was added", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        builder.create().show();
+//                        SymbolManager symbolManager = new SymbolManager(mapView, mapboxMap, style);
+//                        symbolManager.deleteAll();
+//                        symbolManager.setIconAllowOverlap(true);
+//                        symbolManager.setTextAllowOverlap(true);
+//                        SymbolOptions symbolOptions = new SymbolOptions()
+//                                .withLatLng(point)
+//                                .withIconImage(String.valueOf(R.drawable.ic_baseline_location_on_24))
+//                                .withIconSize(1.3f);
+//                        symbolManager.create(symbolOptions);
                         return false;
                     }
                 });

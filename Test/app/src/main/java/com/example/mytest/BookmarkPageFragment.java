@@ -55,7 +55,6 @@ public class BookmarkPageFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-        BookmarkManager.getInstance().initialize(getContext());
         showAllBookmarks();
     }
 

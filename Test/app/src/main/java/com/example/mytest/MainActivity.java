@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavgationView = findViewById(R.id.bottomNavigationView);
         navController = Navigation.findNavController(this,R.id.fragment);
         NavigationUI.setupWithNavController(bottomNavgationView, navController);
+        BookmarkManager.getInstance().initialize(this);
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
     }
 }
