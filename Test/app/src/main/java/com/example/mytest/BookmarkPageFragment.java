@@ -80,7 +80,11 @@ public class BookmarkPageFragment extends Fragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         for (Location location : locations)
         {
-            fragmentTransaction.show(fragmentManager.findFragmentByTag("fragment " + location.getLocationName()));
+            Fragment fragment = fragmentManager.findFragmentByTag("fragment " + location.getLocationName());
+            if (fragment != null)
+            {
+                fragmentTransaction.show(fragment);
+            }
         }
         fragmentTransaction.commit();
     }
