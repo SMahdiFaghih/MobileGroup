@@ -6,8 +6,6 @@
         android:id="@+id/fragment_bookmark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        android:paddingBottom="5dp"
         tools:context=".MainActivity">
 
     <Button
@@ -15,13 +13,11 @@
             android:layout_width="320dp"
             android:layout_height="70dp"
             android:id="@+id/bookmark_button"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="10sp"
-            app:autoSizeMaxTextSize="20sp"
+            android:layout_marginBottom="10dp"
             app:backgroundTintMode="multiply"
             app:backgroundTint="#FFFFFF"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,6 +29,8 @@
             android:layout_width="50dp"
             android:layout_height="55dp"
             android:id="@+id/trashBinIcon"
+            android:clickable="true"
+            android:focusable="true"
             tools:ignore="MissingConstraints"
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
@@ -49,11 +47,13 @@
             app:layout_constraintVertical_bias="0.2" />
 
     <LinearLayout
+            android:id="@+id/bookmark_linear_layout"
             android:orientation="vertical"
             android:layout_width="260dp"
             android:layout_height="64dp"
             android:gravity="start"
-
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintStart_toStartOf="@+id/bookmark_button"
             android:layout_marginLeft="14dp"
             android:layout_marginStart="14dp"

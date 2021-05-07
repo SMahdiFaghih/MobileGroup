@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
@@ -36,8 +37,8 @@ public class BookmarkFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_bookmark, null);
 
-        Button button = (Button) view.findViewById(R.id.bookmark_button);
-        button.setOnClickListener(new View.OnClickListener()
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bookmark_linear_layout);
+        linearLayout.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
