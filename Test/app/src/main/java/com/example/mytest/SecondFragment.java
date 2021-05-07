@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,9 @@ import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 import com.mapbox.mapboxsdk.location.LocationComponentOptions;
@@ -89,6 +92,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
     private MapView mapView;
     private PermissionsManager permissionsManager;
     private MapboxMap mapboxMap;
+    private ImageButton getLocation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,6 +100,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_second, container, false);
         mapView = view.findViewById(R.id.mapView);
+        getLocation = view.findViewById(R.id.imageButton);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
@@ -217,12 +222,20 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
                 });
 
                 ArrayList<Location> bookmarks = BookmarkManager.getInstance().getAllLocations();
+
                 for (int i = 0; i < bookmarks.size(); i++) {
                     mapboxMap.addMarker(new MarkerOptions()
                             .position(new LatLng(Double.parseDouble(bookmarks.get(i).getX()),
                                     Double.parseDouble(bookmarks.get(i).getY())))
                     .title(bookmarks.get(i).getLocationName()));
                 }
+
+                getLocation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        enableLocationComponent(style);
+                    }
+                });
 
                 enableLocationComponent(style);
             }
