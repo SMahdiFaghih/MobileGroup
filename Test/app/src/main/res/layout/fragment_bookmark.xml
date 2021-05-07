@@ -50,7 +50,7 @@
 
     <LinearLayout
             android:orientation="vertical"
-            android:layout_width="220dp"
+            android:layout_width="260dp"
             android:layout_height="64dp"
             android:gravity="start"
 
@@ -91,25 +91,27 @@
             <TextView
                     android:text="X"
                     android:maxLines="1"
-                    android:layout_width="110dp"
+                    android:layout_width="125dp"
                     android:layout_height="32dp"
                     android:gravity=""
                     android:textColor="#000000"
                     app:autoSizeTextType="uniform"
-                    app:autoSizeMinTextSize="10sp"
-                    app:autoSizeMaxTextSize="15sp"
-                    android:id="@+id/location_x" />
+                    android:textSize="8sp"
+                    android:id="@+id/location_x"/>
+
+            <Space
+                    android:layout_width="5dp"
+                    android:layout_height="wrap_content"/>
 
             <TextView
                     android:text="Y"
                     android:maxLines="1"
-                    android:layout_width="110dp"
+                    android:layout_width="125dp"
                     android:layout_height="32dp"
                     android:gravity=""
                     android:textColor="#000000"
                     app:autoSizeTextType="uniform"
-                    app:autoSizeMinTextSize="10sp"
-                    app:autoSizeMaxTextSize="15sp"
+                    android:textSize="8sp"
                     android:id="@+id/location_y" />
         </LinearLayout>
     </LinearLayout>
