@@ -34,7 +34,9 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
+import com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -213,6 +215,15 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
                         return false;
                     }
                 });
+
+                ArrayList<Location> bookmarks = BookmarkManager.getInstance().getAllLocations();
+                for (int i = 0; i < bookmarks.size(); i++) {
+                    mapboxMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Double.parseDouble(bookmarks.get(i).getX()),
+                                    Double.parseDouble(bookmarks.get(i).getY())))
+                    .title(bookmarks.get(i).getLocationName()));
+                }
+
                 enableLocationComponent(style);
             }
         });
