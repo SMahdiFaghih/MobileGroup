@@ -3,6 +3,7 @@ package com.example.mytest;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 
 public class BookmarkFragment extends Fragment
 {
@@ -40,6 +43,7 @@ public class BookmarkFragment extends Fragment
             public void onClick(View v)
             {
                 //TODO show this bookmark on map
+                getActivity().findViewById(R.id.secondFragment).callOnClick();
             }
         });
 
