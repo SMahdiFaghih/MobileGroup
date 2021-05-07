@@ -28,6 +28,7 @@ public class ThirdFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        SecondFragment.getInstance().setPosition(null, null);
     }
 
     @Override

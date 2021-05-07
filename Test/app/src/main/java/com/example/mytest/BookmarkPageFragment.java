@@ -23,6 +23,7 @@ public class BookmarkPageFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        SecondFragment.getInstance().setPosition(null, null);
         instance = this;
     }
 
