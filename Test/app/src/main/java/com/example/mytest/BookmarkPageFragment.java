@@ -42,7 +42,7 @@ public class BookmarkPageFragment extends Fragment
             @Override
             public boolean onQueryTextChange(String newText)
             {
-                System.out.println("Searched Text" + newText);
+                System.out.println("Searched Text: " + newText);
                 showSearchedLocations(searchView.getQuery().toString());
                 return true;
             }

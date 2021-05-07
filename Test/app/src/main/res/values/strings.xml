@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">MyTest</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">HW2</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mapbox_access_token">pk.eyJ1IjoiaGVzYW5naGFzZW1pIiwiYSI6ImNrbzVwOTQ3ejFlOGYyd2x5NjNwaGd3NDIifQ.7pu53UfIXciwQpCAE4sC5w</string>
     <string name="trash_bin_icon">TrashBinIcon</string>
     <string name="bookmark">Bookmark</string>
-    <string name="search_hint">Search...</string>
+    <string name="search_hint">Search</string>
 </resources>
