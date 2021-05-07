@@ -24,6 +24,7 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.location.LocationComponent;
@@ -259,6 +260,13 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
             locationComponent.setLocationComponentEnabled(true);
 
             locationComponent.setCameraMode(CameraMode.TRACKING);
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(locationComponent.getLastKnownLocation()))
+                    .zoom(10)
+                    .build();
+            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
+                    1000);
 
             locationComponent.setRenderMode(RenderMode.COMPASS);
         } else {
