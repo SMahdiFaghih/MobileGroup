@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -119,6 +120,7 @@ public class BookmarkPageFragment extends Fragment
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.remove(fragment).commit();
+        Toast.makeText(getActivity(), "Bookmark deleted", Toast.LENGTH_LONG).show();
     }
 
     public static BookmarkPageFragment getInstance()

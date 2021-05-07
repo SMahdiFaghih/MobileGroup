@@ -36,62 +36,21 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
-import com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SecondFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class SecondFragment extends Fragment implements OnMapReadyCallback, PermissionsListener {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String x;
-    private String y;
-
-    public SecondFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param x Parameter 1.
-     * @param y Parameter 2.
-     * @return A new instance of fragment SecondFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SecondFragment newInstance(String x, String y) {
-        SecondFragment fragment = new SecondFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, x);
-        args.putString(ARG_PARAM2, y);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+public class SecondFragment extends Fragment implements OnMapReadyCallback, PermissionsListener
+{
     private static SecondFragment secondFragment;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        if (secondFragment == null) {
+        if (secondFragment == null)
+        {
             secondFragment = this;
-        }
-        if (getArguments() != null) {
-            x = getArguments().getString(ARG_PARAM1);
-            y = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -103,105 +62,127 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
     private static String lng;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_second, container, false);
         mapView = view.findViewById(R.id.mapView);
         getLocation = view.findViewById(R.id.imageButton);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
         return view;
     }
 
-    public void setPosition(String x, String y) {
+    public void setPosition(String x, String y)
+    {
         lat = x;
         lng = y;
     }
 
-    public static SecondFragment getInstance() {
-        if (secondFragment == null) {
+    public static SecondFragment getInstance()
+    {
+        if (secondFragment == null)
+        {
             secondFragment = new SecondFragment();
         }
         return secondFragment;
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         mapView.onResume();
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
         mapView.onStart();
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
         mapView.onStop();
     }
 
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         super.onPause();
         mapView.onPause();
     }
 
     @Override
-    public void onLowMemory() {
+    public void onLowMemory()
+    {
         super.onLowMemory();
         mapView.onLowMemory();
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy()
+    {
         super.onDestroy();
         mapView.onDestroy();
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView()
+    {
         super.onDestroyView();
         mapView.onDestroy();
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
-    public void onExplanationNeeded(List<String> permissionsToExplain) {
+    public void onExplanationNeeded(List<String> permissionsToExplain)
+    {
         Toast.makeText(getContext(), "R.string.user_location_permission_explanation", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onPermissionResult(boolean granted) {
-        if (granted) {
-            mapboxMap.getStyle(new Style.OnStyleLoaded() {
+    public void onPermissionResult(boolean granted)
+    {
+        if (granted)
+        {
+            mapboxMap.getStyle(new Style.OnStyleLoaded()
+            {
                 @Override
-                public void onStyleLoaded(@NonNull Style style) {
+                public void onStyleLoaded(@NonNull Style style)
+                {
                     enableLocationComponent(style);
                 }
             });
-        } else {
+        }
+        else
+        {
             Toast.makeText(getContext(), "R.string.user_location_permission_not_granted", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
+    public void onMapReady(@NonNull MapboxMap mapboxMap)
+    {
         SecondFragment.this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
+        mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded()
+        {
             @Override
-            public void onStyleLoaded(@NonNull Style style) {
-                mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
+            public void onStyleLoaded(@NonNull Style style)
+            {
+                mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener()
+                {
                     @Override
-                    public boolean onMapClick(@NonNull LatLng point) {
+                    public boolean onMapClick(@NonNull LatLng point)
+                    {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle("Create bookmark");
                         builder.setMessage("Lat: " + point.getLatitude() + "\n" + "Long: " + point.getLongitude());
@@ -210,19 +191,21 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
                         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                         input.setInputType(InputType.TYPE_CLASS_TEXT);
                         builder.setView(input);
-                        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton("Save", new DialogInterface.OnClickListener()
+                        {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                BookmarkManager.getInstance()
-                                        .insertNewLocation(input.getText().toString(),
-                                                Double.toString(point.getLatitude()),
-                                                Double.toString(point.getLongitude()));
-                                Toast.makeText(getActivity(), "Your bookmark was added", Toast.LENGTH_LONG).show();
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                BookmarkManager.getInstance().insertNewLocation(input.getText().toString(), Double.toString(point.getLatitude()), Double.toString(point.getLongitude()));
+                                Toast.makeText(getActivity(), "Your bookmark added", Toast.LENGTH_LONG).show();
+                                mapboxMap.addMarker(new MarkerOptions().position(point).title(input.getText().toString()));
                             }
                         });
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                        {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
                             }
                         });
                         builder.create().show();
@@ -232,72 +215,67 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback, Perm
 
                 ArrayList<Location> bookmarks = BookmarkManager.getInstance().getAllLocations();
 
-                for (int i = 0; i < bookmarks.size(); i++) {
-                    mapboxMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Double.parseDouble(bookmarks.get(i).getX()),
-                                    Double.parseDouble(bookmarks.get(i).getY())))
-                            .title(bookmarks.get(i).getLocationName()));
+                for (int i = 0; i < bookmarks.size(); i++)
+                {
+                    mapboxMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(bookmarks.get(i).getX()), Double.parseDouble(bookmarks.get(i).getY()))).title(bookmarks.get(i).getLocationName()));
                 }
 
                 System.out.println("******");
                 System.out.println(lat);
                 System.out.println(lng);
 
-                getLocation.setOnClickListener(new View.OnClickListener() {
+                getLocation.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v)
+                    {
                         enableLocationComponent(style);
                     }
                 });
 
-                if (lat == null) {
+                if (lat == null)
+                {
                     enableLocationComponent(style);
-                } else {
-                    CameraPosition cameraPosition = new CameraPosition.Builder()
-                            .target(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)))
-                            .zoom(10)
-                            .build();
-                    mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
-                            1000);
+                }
+                else
+                {
+                    CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))).zoom(10).build();
+                    mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000);
                 }
             }
         });
     }
 
     @SuppressWarnings({"MissingPermission"})
-    private void enableLocationComponent(@NonNull Style loadedMapStyle) {
-        if (PermissionsManager.areLocationPermissionsGranted(getContext())) {
-            LocationComponentOptions customLocationComponentOptions = LocationComponentOptions.builder(getContext())
-                    .pulseEnabled(true)
-                    .build();
+    private void enableLocationComponent(@NonNull Style loadedMapStyle)
+    {
+        if (PermissionsManager.areLocationPermissionsGranted(getContext()))
+        {
+            LocationComponentOptions customLocationComponentOptions = LocationComponentOptions.builder(getContext()).pulseEnabled(true).build();
 
             LocationComponent locationComponent = mapboxMap.getLocationComponent();
 
-            locationComponent.activateLocationComponent(
-                    LocationComponentActivationOptions.builder(getContext(), loadedMapStyle)
-                            .locationComponentOptions(customLocationComponentOptions)
-                            .build());
+            locationComponent.activateLocationComponent(LocationComponentActivationOptions.builder(getContext(), loadedMapStyle).locationComponentOptions(customLocationComponentOptions).build());
 
             locationComponent.setLocationComponentEnabled(true);
 
             locationComponent.setCameraMode(CameraMode.TRACKING);
 
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(locationComponent.getLastKnownLocation()))
-                    .zoom(10)
-                    .build();
-            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
-                    1000);
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(locationComponent.getLastKnownLocation())).zoom(10).build();
+            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000);
 
             locationComponent.setRenderMode(RenderMode.COMPASS);
-        } else {
+        }
+        else
+        {
             permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(getActivity());
         }
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState)
+    {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
