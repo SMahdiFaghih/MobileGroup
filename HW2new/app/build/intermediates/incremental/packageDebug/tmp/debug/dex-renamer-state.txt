@@ -1,0 +1,4 @@
+#Sun May 02 13:55:00 IRDT 2021
+base.0=F\:\\MobileProgramming\\MobileGroup\\HW2new\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
