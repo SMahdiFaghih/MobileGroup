@@ -2,15 +2,19 @@ import Foundation
 
 class Todo
 {
+    static var nextObjectIndex = 1;
     var title = ""
     var content = ""
     var priority = 0
+    var dateCreated = 0;
 
     init(title: String, content: String, priority: Int)
     {
         self.title = title
         self.content = content
         self.priority = priority
+        dateCreated = Todo.nextObjectIndex
+        Todo.nextObjectIndex += 1
     }
 
     func setTitle(newTitle: String)
@@ -162,7 +166,8 @@ while (true)
                     listOfTodoItems = listOfTodoItems.sorted(by: { $0.priority > $1.priority })
                 }
             } 
-            else {
+            else if (sortBy == "date")
+            {
                 if (sortType == "ascending") 
                 {
                     listOfTodoItems = listOfTodoItems.sorted(by: { $0.dateCreated < $1.dateCreated })
@@ -265,12 +270,16 @@ while (true)
                 print("Category with this name doesn't exist")
             }
         }
-        else
+        else if (userInput == "showAllTodoItems")
         {
             for item in listOfTodoItems
             {
                 print(item.title + " - " + item.content + " - " + String(item.priority))
             }
+        }
+        else
+        {
+            print("Wrong input!!!!")
         }
     }
 }
