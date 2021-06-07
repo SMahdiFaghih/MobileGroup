@@ -257,7 +257,7 @@ while (true)
             {
                 for item in selectedCategory.listOfTodoItemsInThisCategory
                 {
-                    print(item.title + "-" + item.content + "-" + String(item.priority))
+                    print(item.title + " - " + item.content + " - " + String(item.priority))
                 }
             }
             else
