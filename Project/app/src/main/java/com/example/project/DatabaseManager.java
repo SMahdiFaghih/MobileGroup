@@ -127,6 +127,11 @@ public class DatabaseManager
         db.update(FeedReaderContract.FeedEntry.TABLE, values, "username = ?", new String[]{player.getUsername()});
     }
 
+    public void logOut(int playerIndex)
+    {
+        loggedInPlayers[playerIndex] = null;
+    }
+
     public static DatabaseManager getInstance()
     {
         if (Instance == null)
