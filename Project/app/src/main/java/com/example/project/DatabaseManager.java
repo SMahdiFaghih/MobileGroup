@@ -69,9 +69,9 @@ public class DatabaseManager
         Cursor cursor = db.rawQuery("SELECT * FROM " + FeedReaderContract.FeedEntry.TABLE + " WHERE username = ? AND password = ? LIMIT 1", new String[] {username, password});
         if (cursor.moveToFirst())
         {
-            String wins = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_WIN));
-            String draws = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_DRAW));
-            String loses = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_LOSE));
+            int wins = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_WIN));
+            int draws = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_DRAW));
+            int loses = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_LOSE));
             Player player = new Player(username, wins, draws, loses);
             loggedInPlayers[playerIndex] = player;
 
@@ -94,9 +94,9 @@ public class DatabaseManager
             while (!cursor.isAfterLast())
             {
                 String username = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_USERNAME));
-                String wins = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_WIN));
-                String draws = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_DRAW));
-                String loses = cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_LOSE));
+                int wins = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_WIN));
+                int draws = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_DRAW));
+                int loses = cursor.getInt(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_LOSE));
                 Player player = new Player(username, wins, draws, loses);
                 players.add(player);
 

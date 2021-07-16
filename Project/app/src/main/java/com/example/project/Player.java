@@ -3,11 +3,11 @@ package com.example.project;
 public class Player
 {
     private String username;
-    private String wins;
-    private String draws;
-    private String loses;
+    private int wins;
+    private int draws;
+    private int loses;
 
-    public Player(String username, String wins, String draws, String loses)
+    public Player(String username, int wins, int draws, int loses)
     {
         this.username = username;
         this.wins = wins;
@@ -19,15 +19,16 @@ public class Player
         return username;
     }
 
-    public String getWins() {
+    public int getWins() {
         return wins;
     }
 
-    public String getDraws() {
+    public int getDraws()
+    {
         return draws;
     }
 
-    public String getLoses() {
+    public int getLoses() {
         return loses;
     }
 }

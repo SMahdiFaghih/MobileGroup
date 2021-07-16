@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragment_leaderboard_entry"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+    <Button
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:id="@+id/leaderboard_entry"
+            android:layout_marginBottom="10dp"
+            app:backgroundTintMode="multiply"
+            app:backgroundTint="#FFFFFF"
+            android:clickable="false"
+            android:focusable="false"
+            android:layout_margin="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    <LinearLayout
+            android:id="@+id/bookmark_linear_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="start"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="@+id/leaderboard_entry"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/leaderboard_entry"
+            app:layout_constraintTop_toTopOf="@+id/leaderboard_entry"
+            android:layout_marginTop="4dp"
+            app:layout_constraintHorizontal_bias="0.058"
+            app:layout_constraintBottom_toBottomOf="@+id/leaderboard_entry"
+            android:layout_marginBottom="5dp">
+
+        <TextView
+                android:text="1"
+                android:maxLines="1"
+                android:layout_width="20dp"
+                android:layout_height="50dp"
+                android:gravity=""
+                android:textColor="#000000"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeMaxTextSize="20sp"
+                android:id="@+id/rank" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="username"
+            android:maxLines="1"
+            android:layout_width="148dp"
+            android:layout_height="50dp"
+            android:gravity=""
+            android:textColor="#000000"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeMaxTextSize="20sp"
+            android:id="@+id/username"/>
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/wins"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity=""
+            android:maxLines="1"
+            android:text="wins"
+            android:textColor="#000000"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeTextType="uniform" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/draws"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity=""
+            android:maxLines="1"
+            android:text="draws"
+            android:textColor="#000000"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeTextType="uniform" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/loses"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity=""
+            android:maxLines="1"
+            android:text="loses"
+            android:textColor="#000000"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeTextType="uniform" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
