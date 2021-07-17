@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DatabaseManager.getInstance().initialize(this);
+//        DatabaseManager.getInstance().initialize(this);
+        getSupportFragmentManager().beginTransaction().add(R.id.container,new Menu()).commit();
     }
 }
