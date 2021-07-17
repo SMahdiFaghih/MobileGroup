@@ -16,15 +16,6 @@ public class Menu extends Fragment {
         // Required empty public constructor
     }
 
-    public static Menu getInstance()
-    {
-        Menu menu = new Menu();
-
-        return menu;
-    }
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +24,6 @@ public class Menu extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_menu, null);
         Button Game_Button = (Button) view.findViewById(R.id.Game_Button);
         Game_Button.setOnClickListener(new View.OnClickListener() {
@@ -59,17 +49,16 @@ public class Menu extends Fragment {
                 // Code here executes on main thread after user presses button
             }
         });
+
         Button Exit_Button = (Button) view.findViewById(R.id.Exit_Button);
         Exit_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
+               getActivity().finish();
+               System.exit(0);
             }
         });
 
 
         return view;
-    }
-
-    public void initialize(MainActivity mainActivity) {
     }
 }
