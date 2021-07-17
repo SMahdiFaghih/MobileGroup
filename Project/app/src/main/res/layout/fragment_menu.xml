@@ -45,10 +45,21 @@
         android:id="@+id/button5"
         android:layout_width="match_parent"
         android:layout_height="92dp"
-        android:text="Exit"
+        android:text="Log-out"
         android:layout_marginStart="20px"
         android:layout_marginLeft="20px"
         android:layout_marginTop="1000px"
+        android:layout_marginEnd="20px"
+        android:layout_marginRight="20px"
+        />
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        android:text="Exit"
+        android:layout_marginStart="20px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="1250px"
         android:layout_marginEnd="20px"
         android:layout_marginRight="20px"
         />
