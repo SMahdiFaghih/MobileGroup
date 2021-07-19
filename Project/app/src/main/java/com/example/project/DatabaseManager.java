@@ -13,6 +13,7 @@ public class DatabaseManager
     private FeedReaderDbHelper dbHelper;
     private Player[] loggedInPlayers = new Player[2];
 
+
     private DatabaseManager()
     {
         //Only to make this class Singleton

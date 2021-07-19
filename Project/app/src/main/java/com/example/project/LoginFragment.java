@@ -38,6 +38,7 @@ public class LoginFragment extends Fragment {
 
         Button FirstSignUp = (Button) view.findViewById(R.id.Sign);
         TextView tv1 = (TextView)view.findViewById(R.id.message1);
+        TextView tv2 = (TextView)view.findViewById(R.id.message2);
         FirstSignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 firstSignText = databaseManager.signUp(FirstPlayerName.getText().toString(),FirstPlayerPassword.getText().toString());
@@ -57,18 +58,21 @@ public class LoginFragment extends Fragment {
         SecondSignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SecondSignText = databaseManager.signUp(SecondPlayerName.getText().toString(),SecondPlayerPassword.getText().toString());
+                tv2.setText(SecondSignText);
             }
         });
         Button SecondLogin = (Button) view.findViewById(R.id.user2Login);
         SecondLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SecondLoginText =  databaseManager.login(SecondPlayerName.getText().toString(),SecondPlayerPassword.getText().toString(),1);
+                tv2.setText(SecondLoginText);
+
             }
         });
         Button MenuButton = (Button) view.findViewById(R.id.MenuButton);
         MenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(SecondLoginText.equals("Player logged in successfully") && firstLoginText.equals("firstLoginText"))
+                if(SecondLoginText.equalsIgnoreCase("Player logged in successfully") && firstLoginText.equalsIgnoreCase("Player logged in successfully"))
                 {
                     Menu menu = new Menu();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
