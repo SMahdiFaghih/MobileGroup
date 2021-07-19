@@ -3,6 +3,7 @@ package com.example.project;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,10 @@ public class Menu extends Fragment {
         Button LeaderBoard_Button = (Button) view.findViewById(R.id.LeaderBoard_Button);
         LeaderBoard_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
+                LeaderboardPageFragment LeaderBoard = new LeaderboardPageFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.menuFragment,LeaderBoard);
+                transaction.commit();
             }
         });
         Button Profile_Button = (Button) view.findViewById(R.id.Profile_Button);
