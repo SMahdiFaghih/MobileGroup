@@ -7,6 +7,7 @@ Swift assignment is in Swift folder.
 </div>
 
 createTodoItem - updateTodoItem - removeTodoItem - showAllTodoItems - sortTodoItems
+
 createCategory - addTodoItemToCategory - showAllCategoryTodoItems
 
 <div dir="rtl">
