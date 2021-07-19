@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class Menu extends Fragment {
 
@@ -44,13 +45,18 @@ public class Menu extends Fragment {
         Button Profile_Button = (Button) view.findViewById(R.id.Profile_Button);
         Profile_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
+
             }
         });
         Button LogOut_Button = (Button) view.findViewById(R.id.LogOut_Button);
         LogOut_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
+                LoginFragment login = new LoginFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container,login);
+                transaction.commit();
+//                EditText f = getActivity().findViewById(R.id.editTextName);
+//                f.setVisibility(v.INVISIBLE);
             }
         });
 

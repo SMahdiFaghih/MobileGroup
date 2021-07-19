@@ -18,6 +18,10 @@ public class LoginFragment extends Fragment {
     String firstLoginText = "";
     String SecondSignText = "";
     String SecondLoginText = "";
+    EditText FirstPlayerName ;
+    EditText FirstPlayerPassword;
+    EditText SecondPlayerName;
+    EditText SecondPlayerPassword;
 
 
 
@@ -30,10 +34,10 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_login, container, false);
-        EditText FirstPlayerName =(EditText) view.findViewById(R.id.editTextName);
-        EditText FirstPlayerPassword =(EditText) view.findViewById(R.id.editTextNumberPassword2);
-        EditText SecondPlayerName = (EditText) view.findViewById(R.id.user2editTextName);
-        EditText SecondPlayerPassword =(EditText) view.findViewById(R.id.user2EditTextNumberPassword2);
+        FirstPlayerName =(EditText) view.findViewById(R.id.editTextName);
+        FirstPlayerPassword =(EditText) view.findViewById(R.id.editTextNumberPassword2);
+        SecondPlayerName = (EditText) view.findViewById(R.id.user2editTextName);
+        SecondPlayerPassword =(EditText) view.findViewById(R.id.user2EditTextNumberPassword2);
 
 
         Button FirstSignUp = (Button) view.findViewById(R.id.Sign);
