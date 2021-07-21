@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class LoginFragment extends Fragment {
@@ -41,8 +42,34 @@ public class LoginFragment extends Fragment {
 
 
         Button FirstSignUp = (Button) view.findViewById(R.id.Sign);
+
+        Button FirstLogin = (Button) view.findViewById(R.id.Login);
         TextView tv1 = (TextView)view.findViewById(R.id.message1);
         TextView tv2 = (TextView)view.findViewById(R.id.message2);
+
+        TextView firstPlayerNameAfterLogin  = (TextView) view.findViewById(R.id.nameString1);
+        Button LogoutButton = (Button) view.findViewById(R.id.LogOut_Button1);
+        LinearLayout password1 = (LinearLayout) view.findViewById(R.id.passwordLine);
+
+        TextView secondPlayerNameAfterLogin  = (TextView) view.findViewById(R.id.nameString2);
+        Button LogoutButton2 = (Button) view.findViewById(R.id.LogOut_Button2);
+
+        LinearLayout password2 = (LinearLayout) view.findViewById(R.id.user2PasswordLine);
+
+
+        LogoutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                databaseManager.logOut(0);
+                FirstSignUp.setVisibility(view.VISIBLE);
+                FirstPlayerPassword.setVisibility(view.VISIBLE);
+                password1.setVisibility(view.VISIBLE);
+                LogoutButton.setVisibility(view.GONE);
+                FirstLogin.setVisibility(view.VISIBLE);
+                FirstPlayerName.setVisibility(view.VISIBLE);
+                firstPlayerNameAfterLogin.setVisibility(view.GONE);
+                tv1.setText("Player logged out successfully");
+            }
+        });
         FirstSignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 firstSignText = databaseManager.signUp(FirstPlayerName.getText().toString(),FirstPlayerPassword.getText().toString());
@@ -50,11 +77,20 @@ public class LoginFragment extends Fragment {
                 tv1.setText(firstSignText);
             }
         });
-        Button FirstLogin = (Button) view.findViewById(R.id.Login);
+
         FirstLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 firstLoginText= databaseManager.login(FirstPlayerName.getText().toString(),FirstPlayerPassword.getText().toString(),0);
                 tv1.setText(firstLoginText);
+                FirstPlayerName.setVisibility(view.GONE);
+                firstPlayerNameAfterLogin.setVisibility(view.VISIBLE);
+                firstPlayerNameAfterLogin.setText(databaseManager.getLoggedInPlayers()[0].getUsername());
+                FirstSignUp.setVisibility(view.GONE);
+                FirstPlayerPassword.setVisibility(view.GONE);
+                password1.setVisibility(view.GONE);
+                LogoutButton.setVisibility(view.VISIBLE);
+                FirstLogin.setVisibility(view.GONE);
+
             }
         });
 

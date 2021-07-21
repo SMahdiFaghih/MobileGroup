@@ -13,6 +13,9 @@ public class DatabaseManager
     private FeedReaderDbHelper dbHelper;
     private Player[] loggedInPlayers = new Player[2];
 
+    public Player[] getLoggedInPlayers() {
+        return loggedInPlayers;
+    }
 
     private DatabaseManager()
     {
