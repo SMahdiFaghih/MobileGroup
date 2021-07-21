@@ -134,7 +134,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="420dp"
 
         android:layout_marginRight="30dp"
         android:layout_marginBottom="5dp"
@@ -260,7 +260,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
         android:layout_marginLeft="150dp"
-        android:layout_marginTop="410dp"
+        android:layout_marginTop="415dp"
+        android:textColor="@color/black"
         android:visibility="gone"
         android:text=""
         android:textSize="22dp" />
@@ -273,7 +274,7 @@
         android:layout_marginLeft="150dp"
         android:layout_marginTop="490dp"
         android:visibility="gone"
-        android:text="Button" />
+        android:text="LogOut" />
 
 
 </FrameLayout>
