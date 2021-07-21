@@ -67,7 +67,7 @@ public class LoginFragment extends Fragment {
                 FirstLogin.setVisibility(view.VISIBLE);
                 FirstPlayerName.setVisibility(view.VISIBLE);
                 firstPlayerNameAfterLogin.setVisibility(view.GONE);
-                tv1.setText("Player logged out successfully");
+                tv1.setText("Player logged out successfully11");
             }
         });
         FirstSignUp.setOnClickListener(new View.OnClickListener() {
