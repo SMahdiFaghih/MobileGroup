@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,8 @@ public class LoginFragment extends Fragment {
     TextView tv2;
     Button SecondSignUp;
     Button SecondLogin;
+    private static final String TAG = "MyActivity";
+
 
 
 
@@ -48,28 +51,38 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_login, container, false);
-        FirstPlayerName =(EditText) view.findViewById(R.id.editTextName);
-        FirstPlayerPassword =(EditText) view.findViewById(R.id.editTextNumberPassword2);
-        SecondPlayerName = (EditText) view.findViewById(R.id.user2editTextName);
-        SecondPlayerPassword =(EditText) view.findViewById(R.id.user2EditTextNumberPassword2);
+
+        FirstPlayerName = view.findViewById(R.id.editTextName);
+        FirstPlayerPassword = view.findViewById(R.id.editTextNumberPassword2);
+        SecondPlayerName = view.findViewById(R.id.user2editTextName);
+        SecondPlayerPassword = view.findViewById(R.id.user2EditTextNumberPassword2);
 
 
-        FirstSignUp = (Button) view.findViewById(R.id.Sign);
-        FirstLogin = (Button) view.findViewById(R.id.Login);
+        FirstSignUp = view.findViewById(R.id.Sign);
+        FirstLogin = view.findViewById(R.id.Login);
 
-        tv1 = (TextView)view.findViewById(R.id.message1);
-        tv2 = (TextView)view.findViewById(R.id.message2);
+        tv1 = view.findViewById(R.id.message1);
+        tv2 = view.findViewById(R.id.message2);
 
-        SecondLogin = (Button) view.findViewById(R.id.user2Login);
-        SecondSignUp = (Button) view.findViewById(R.id.user2Sign);
+        SecondLogin =  view.findViewById(R.id.user2Login);
+        SecondSignUp =  view.findViewById(R.id.user2Sign);
 
-        firstPlayerNameAfterLogin  = (TextView) view.findViewById(R.id.nameString1);
-        LogoutButton = (Button) view.findViewById(R.id.LogOut_Button1);
-        password1 = (LinearLayout) view.findViewById(R.id.passwordLine);
+        firstPlayerNameAfterLogin  = view.findViewById(R.id.nameString1);
+        LogoutButton =  view.findViewById(R.id.LogOut_Button1);
+        password1 =  view.findViewById(R.id.passwordLine);
 
-        secondPlayerNameAfterLogin  = (TextView) view.findViewById(R.id.nameString2);
-        LogoutButton2 = (Button) view.findViewById(R.id.LogOut_Button2);
-        password2 = (LinearLayout) view.findViewById(R.id.user2PasswordLine);
+        secondPlayerNameAfterLogin  = view.findViewById(R.id.nameString2);
+        LogoutButton2 = view.findViewById(R.id.LogOut_Button2);
+        password2 = view.findViewById(R.id.user2PasswordLine);
+
+        if(databaseManager.getLoggedInPlayers()[0]!=null && databaseManager.getLoggedInPlayers()[1]!=null)
+        {
+            ActionsAfterLoginPlayer1(view);
+            ActionsAfterLoginPlayer2(view);
+            Log.i(TAG,databaseManager.getLoggedInPlayers()[0].getUsername());
+            Log.i(TAG,databaseManager.getLoggedInPlayers()[1].getUsername());
+        }
+
 
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -122,7 +135,7 @@ public class LoginFragment extends Fragment {
         Button MenuButton = (Button) view.findViewById(R.id.MenuButton);
         MenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(SecondLoginText.equalsIgnoreCase("Player logged in successfully") && firstLoginText.equalsIgnoreCase("Player logged in successfully"))
+                if(databaseManager.getLoggedInPlayers()[0]!=null && databaseManager.getLoggedInPlayers()[1]!=null)
                 {
                     Menu menu = new Menu();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
