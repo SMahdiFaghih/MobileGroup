@@ -1,9 +1,12 @@
 package com.example.project;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +26,16 @@ public class Game extends Fragment {
     int [][] game = new int[3][3];
     private static final String TAG = "MyActivity";
     boolean gameEnded= false;
+    ImageButton button1;
+    ImageButton button2;
+    ImageButton button3;
+    ImageButton button4;
+    ImageButton button5;
+    ImageButton button6;
+    ImageButton button7;
+    ImageButton button8;
+    ImageButton button9;
+
 
 
 
@@ -48,15 +61,15 @@ public class Game extends Fragment {
                 game[i][j] = 0;
             }
         }
-        ImageButton button1 = view.findViewById(R.id.button1);
-        ImageButton button2 = view.findViewById(R.id.button2);
-        ImageButton button3 = view.findViewById(R.id.button3);
-        ImageButton button4 = view.findViewById(R.id.button4);
-        ImageButton button5 = view.findViewById(R.id.button5);
-        ImageButton button6 = view.findViewById(R.id.button6);
-        ImageButton button7 = view.findViewById(R.id.button7);
-        ImageButton button8 = view.findViewById(R.id.button8);
-        ImageButton button9 = view.findViewById(R.id.button9);
+        button1 = view.findViewById(R.id.button1);
+        button2 = view.findViewById(R.id.button2);
+        button3 = view.findViewById(R.id.button3);
+        button4 = view.findViewById(R.id.button4);
+        button5 = view.findViewById(R.id.button5);
+        button6 = view.findViewById(R.id.button6);
+        button7 = view.findViewById(R.id.button7);
+        button8 = view.findViewById(R.id.button8);
+        button9 = view.findViewById(R.id.button9);
 
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -166,6 +179,57 @@ public class Game extends Fragment {
                     gameEnded = true;
                 }
             }
+        }
+        if(gameEnded)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+
+            if(currentIndex == 1 )
+            {
+                alert.setTitle(second.getUsername()+" wins");
+            }
+            else
+            {
+                alert.setTitle(first.getUsername()+" wins");
+            }
+
+
+             alert.setMessage("Play again?");
+
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    for (int i =0;i<3;i++)
+                    {
+                        for (int j=0;j<3;j++)
+                        {
+                            game[i][j] = 0;
+                        }
+                    }
+                    gameEnded = false;
+                    button1.setImageDrawable(null);
+                    button2.setImageDrawable(null);
+                    button3.setImageDrawable(null);
+                    button4.setImageDrawable(null);
+                    button5.setImageDrawable(null);
+                    button6.setImageDrawable(null);
+                    button7.setImageDrawable(null);
+                    button8.setImageDrawable(null);
+                    button9.setImageDrawable(null);
+                    
+                }
+            });
+
+            alert.setNegativeButton("Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            Menu menu = new Menu();
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.replace(R.id.container,menu);
+                            transaction.commit();
+                        }
+                    });
+
+            alert.show();
         }
 
 
