@@ -2,6 +2,7 @@ package com.example.project;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import static com.example.project.R.drawable.circle;
 import static com.example.project.R.drawable.multiply;
@@ -26,6 +28,7 @@ public class Game extends Fragment {
     int [][] game = new int[3][3];
     private static final String TAG = "MyActivity";
     boolean gameEnded= false;
+    boolean equal = false;
     ImageButton button1;
     ImageButton button2;
     ImageButton button3;
@@ -35,6 +38,11 @@ public class Game extends Fragment {
     ImageButton button7;
     ImageButton button8;
     ImageButton button9;
+    TextView player1;
+    TextView player2;
+    TextView firstScore;
+    TextView secondScore;
+    Button back;
 
 
 
@@ -70,6 +78,32 @@ public class Game extends Fragment {
         button7 = view.findViewById(R.id.button7);
         button8 = view.findViewById(R.id.button8);
         button9 = view.findViewById(R.id.button9);
+        back = view.findViewById(R.id.back);
+        player1 = view.findViewById(R.id.FirstPLayerText);
+        player2 = view.findViewById(R.id.SecondPlayerText);
+        firstScore = view.findViewById(R.id.scoreOfFirst);
+        secondScore = view.findViewById(R.id.scoreOfSecond);
+        player1.setText(first.getUsername());
+        player1.setTextColor(Color.parseColor("#000000"));
+        player2.setTextColor(Color.parseColor("#AC9F9F"));
+        player2.setText(second.getUsername());
+
+
+
+        firstScore.setText(String.valueOf(first.getWins()));
+        firstScore.setTextColor(Color.parseColor("#000000"));
+
+        secondScore.setText(String.valueOf(second.getWins()));
+        secondScore.setTextColor(Color.parseColor("#000000"));
+
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Menu menu = new Menu();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container,menu);
+                transaction.commit();
+            }
+        });
 
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -127,9 +161,10 @@ public class Game extends Fragment {
             {
                 Drawable tempImage = getResources().getDrawable(circle);
                 button.setImageDrawable(tempImage);
-
                 game[row][column] = 1;
                 currentIndex = 2;
+                player2.setTextColor(Color.parseColor("#000000"));
+                player1.setTextColor(Color.parseColor("#AC9F9F"));
             }
             else
             {
@@ -137,6 +172,8 @@ public class Game extends Fragment {
                 button.setImageDrawable(tempImage);
                 game[row][column] = 2;
                 currentIndex = 1;
+                player1.setTextColor(Color.parseColor("#000000"));
+                player2.setTextColor(Color.parseColor("#AC9F9F"));
             }
             if(((game[0][0] == game[0][1]) && (game[0][0] == game[0][2]) && game[0][0] !=0) ||
                     ((game[1][0] == game[1][1]) && (game[1][0] == game[1][2]) && game[1][0] !=0) ||
@@ -151,13 +188,24 @@ public class Game extends Fragment {
                 {
                     databaseManager.addGameResult(second,PlayerGameResult.WIN);
                     databaseManager.addGameResult(first,PlayerGameResult.LOSE);
+                    int score = Integer.parseInt(secondScore.getText().toString());
+                    score = score + 1;
+                    secondScore.setText(String.valueOf(score));
+
                 }
                 else
                 {
                     databaseManager.addGameResult(first,PlayerGameResult.WIN);
                     databaseManager.addGameResult(second,PlayerGameResult.LOSE);
+                    int score = Integer.parseInt(firstScore.getText().toString());
+                    score = score + 1;
+                    firstScore.setText(String.valueOf(score));
+
+
                 }
+
                 gameEnded = true;
+
             }
             else
             {
@@ -176,25 +224,31 @@ public class Game extends Fragment {
                 {
                     databaseManager.addGameResult(first,PlayerGameResult.DRAW);
                     databaseManager.addGameResult(second,PlayerGameResult.DRAW);
+
                     gameEnded = true;
+                    equal = true;
                 }
             }
         }
         if(gameEnded)
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-
-            if(currentIndex == 1 )
+            if(!equal)
             {
-                alert.setTitle(second.getUsername()+" wins");
+                if(currentIndex == 1 )
+                {
+                    alert.setTitle(second.getUsername()+" wins");
+                }
+                else
+                {
+                    alert.setTitle(first.getUsername()+" wins");
+                }
             }
             else
             {
-                alert.setTitle(first.getUsername()+" wins");
+                alert.setTitle("The game ended in a draw");
             }
-
-
-             alert.setMessage("Play again?");
+             alert.setMessage("Do You Want To Play again?");
 
             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
@@ -215,7 +269,10 @@ public class Game extends Fragment {
                     button7.setImageDrawable(null);
                     button8.setImageDrawable(null);
                     button9.setImageDrawable(null);
-                    
+                    equal = false;
+                    player1.setTextColor(Color.parseColor("#000000"));
+                    player2.setTextColor(Color.parseColor("#AC9F9F"));
+                    currentIndex = 1;
                 }
             });
 
