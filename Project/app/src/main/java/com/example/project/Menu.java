@@ -30,10 +30,10 @@ public class Menu extends Fragment {
         Button Game_Button = (Button) view.findViewById(R.id.Game_Button);
         Game_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                Game game = new Game();
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                transaction.replace(R.id.container,game);
-//                transaction.commit();
+                Game game = new Game();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container,game);
+                transaction.commit();
             }
         });
         Button LeaderBoard_Button = (Button) view.findViewById(R.id.LeaderBoard_Button);
