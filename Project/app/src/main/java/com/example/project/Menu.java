@@ -30,7 +30,10 @@ public class Menu extends Fragment {
         Button Game_Button = (Button) view.findViewById(R.id.Game_Button);
         Game_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
+//                Game game = new Game();
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                transaction.replace(R.id.container,game);
+//                transaction.commit();
             }
         });
         Button LeaderBoard_Button = (Button) view.findViewById(R.id.LeaderBoard_Button);
@@ -38,7 +41,7 @@ public class Menu extends Fragment {
             public void onClick(View v) {
                 LeaderboardPageFragment LeaderBoard = new LeaderboardPageFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.menuFragment,LeaderBoard);
+                transaction.replace(R.id.container,LeaderBoard);
                 transaction.commit();
             }
         });
@@ -67,8 +70,6 @@ public class Menu extends Fragment {
                System.exit(0);
             }
         });
-
-
         return view;
     }
 }
