@@ -11,7 +11,7 @@
     <Button
             android:background="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="30dp"
             android:id="@+id/leaderboard_entry"
             android:layout_marginBottom="10dp"
             app:backgroundTintMode="multiply"
@@ -28,13 +28,11 @@
             android:id="@+id/bookmark_linear_layout"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="30dp"
             android:gravity="start"
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintStart_toStartOf="@+id/leaderboard_entry"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             app:layout_constraintEnd_toEndOf="@+id/leaderboard_entry"
             app:layout_constraintTop_toTopOf="@+id/leaderboard_entry"
             android:layout_marginTop="4dp"
@@ -43,32 +41,34 @@
             android:layout_marginBottom="5dp">
 
         <TextView
-                android:text="1"
-                android:maxLines="1"
-                android:layout_width="20dp"
-                android:layout_height="50dp"
-                android:gravity=""
-                android:textColor="#000000"
-                app:autoSizeTextType="uniform"
-                app:autoSizeMinTextSize="10sp"
-                app:autoSizeMaxTextSize="20sp"
-                android:id="@+id/rank" />
+            android:id="@+id/rank"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="1"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="21sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeTextType="uniform"/>
 
         <Space
             android:layout_width="20dp"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="username"
+            android:id="@+id/username"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
             android:maxLines="1"
-            android:layout_width="148dp"
-            android:layout_height="50dp"
-            android:gravity=""
+            android:text="username"
             android:textColor="#000000"
-            app:autoSizeTextType="uniform"
+            android:textSize="21sp"
+            app:autoSizeMaxTextSize="21sp"
             app:autoSizeMinTextSize="10sp"
-            app:autoSizeMaxTextSize="20sp"
-            android:id="@+id/username"/>
+            app:autoSizeTextType="uniform"/>
 
         <Space
             android:layout_width="20dp"
@@ -76,15 +76,17 @@
 
         <TextView
             android:id="@+id/wins"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity=""
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
             android:maxLines="1"
-            android:text="wins"
+            android:text="0"
+            android:textAlignment="center"
             android:textColor="#000000"
+            android:textSize="21sp"
             app:autoSizeMaxTextSize="20sp"
             app:autoSizeMinTextSize="10sp"
-            app:autoSizeTextType="uniform" />
+            app:autoSizeTextType="uniform"/>
 
         <Space
             android:layout_width="20dp"
@@ -92,15 +94,17 @@
 
         <TextView
             android:id="@+id/draws"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity=""
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
             android:maxLines="1"
-            android:text="draws"
+            android:text="0"
+            android:textAlignment="center"
             android:textColor="#000000"
+            android:textSize="21sp"
             app:autoSizeMaxTextSize="20sp"
             app:autoSizeMinTextSize="10sp"
-            app:autoSizeTextType="uniform" />
+            app:autoSizeTextType="uniform"/>
 
         <Space
             android:layout_width="20dp"
@@ -108,15 +112,17 @@
 
         <TextView
             android:id="@+id/loses"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity=""
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
             android:maxLines="1"
-            android:text="loses"
+            android:text="0"
+            android:textAlignment="center"
             android:textColor="#000000"
+            android:textSize="21sp"
             app:autoSizeMaxTextSize="20sp"
             app:autoSizeMinTextSize="10sp"
-            app:autoSizeTextType="uniform" />
+            app:autoSizeTextType="uniform"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
