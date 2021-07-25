@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/menuFragment"
     tools:context=".Menu">
+
     <Button
         android:id="@+id/Game_Button"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="92dp"
-        android:layout_marginStart="20px"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="100px"
-        android:layout_marginEnd="20px"
-        android:layout_marginRight="20px"
-        android:text="Game" />
+        android:layout_marginTop="252dp"
+        android:text="Game"
+        app:layout_constraintBottom_toTopOf="@+id/LeaderBoard_Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/LeaderBoard_Button"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="92dp"
         android:text="LeaderBoard"
-        android:layout_marginStart="20px"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="350px"
-        android:layout_marginEnd="20px"
-        android:layout_marginRight="20px"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/Profile_Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/Profile_Button"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="92dp"
         android:text="Profile"
-        android:layout_marginStart="20px"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="600px"
-        android:layout_marginEnd="20px"
-        android:layout_marginRight="20px"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/LogOut_Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/LogOut_Button"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="92dp"
         android:text="Log-out"
-        android:layout_marginStart="20px"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="850px"
-        android:layout_marginEnd="20px"
-        android:layout_marginRight="20px"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/Exit_Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/Exit_Button"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="92dp"
+        android:layout_marginBottom="52dp"
         android:text="Exit"
-        android:layout_marginStart="20px"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="1100px"
-        android:layout_marginEnd="20px"
-        android:layout_marginRight="20px"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

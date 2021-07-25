@@ -276,7 +276,7 @@ public class Game extends Fragment {
                 }
             });
 
-            alert.setNegativeButton("Cancel",
+            alert.setNegativeButton("No",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             Menu menu = new Menu();
