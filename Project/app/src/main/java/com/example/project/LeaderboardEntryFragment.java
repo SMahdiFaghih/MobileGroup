@@ -37,13 +37,13 @@ public class LeaderboardEntryFragment extends Fragment
         usernameTextView.setText(player.getUsername());
 
         TextView winsTextView = (TextView) view.findViewById(R.id.wins);
-        winsTextView.setText(player.getWins());
+        winsTextView.setText(String.valueOf(player.getWins()));
 
         TextView drawsTextView = (TextView) view.findViewById(R.id.draws);
-        drawsTextView.setText(player.getDraws());
+        drawsTextView.setText(String.valueOf(player.getDraws()));
 
         TextView losesTextView = (TextView) view.findViewById(R.id.loses);
-        losesTextView.setText(player.getLoses());
+        losesTextView.setText(String.valueOf(player.getLoses()));
 
         return view;
     }
