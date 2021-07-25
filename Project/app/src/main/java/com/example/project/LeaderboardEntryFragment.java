@@ -14,11 +14,13 @@ import android.widget.TextView;
 public class LeaderboardEntryFragment extends Fragment
 {
     private Player player;
+    private int rank;
 
-    public static LeaderboardEntryFragment newInstance(Player player)
+    public static LeaderboardEntryFragment newInstance(Player player, int rank)
     {
         LeaderboardEntryFragment fragment = new LeaderboardEntryFragment();
         fragment.player = player;
+        fragment.rank = rank;
         return fragment;
     }
 
@@ -32,6 +34,9 @@ public class LeaderboardEntryFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_leaderboard_entry, null);
+
+        TextView rankTextView = (TextView) view.findViewById(R.id.rank);
+        rankTextView.setText(String.valueOf(rank));
 
         TextView usernameTextView = (TextView) view.findViewById(R.id.username);
         usernameTextView.setText(player.getUsername());

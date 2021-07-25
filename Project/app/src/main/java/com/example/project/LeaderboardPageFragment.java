@@ -47,7 +47,7 @@ public class LeaderboardPageFragment extends Fragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         for (Player player : players)
         {
-            LeaderboardEntryFragment bookmarkFragment = LeaderboardEntryFragment.newInstance(player);
+            LeaderboardEntryFragment bookmarkFragment = LeaderboardEntryFragment.newInstance(player, players.indexOf(player) + 1);
             fragmentTransaction.add(R.id.ranks, bookmarkFragment, "fragment " + player.getUsername());
         }
         fragmentTransaction.commit();
