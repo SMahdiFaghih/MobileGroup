@@ -111,12 +111,16 @@ public class LoginFragment extends Fragment {
 
         FirstLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                firstLoginText= databaseManager.login(FirstPlayerName.getText().toString(),FirstPlayerPassword.getText().toString(),0);
+                firstLoginText = databaseManager.login(FirstPlayerName.getText().toString(),FirstPlayerPassword.getText().toString(),0);
                 tv1.setText(firstLoginText);
-                ActionsAfterLoginPlayer1(view);
+                if (firstLoginText.equals("Player logged in successfully"))
+                {
+                    ActionsAfterLoginPlayer1(view);
+                }
 
             }
         });
+        
         SecondSignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SecondSignText = databaseManager.signUp(SecondPlayerName.getText().toString(),SecondPlayerPassword.getText().toString());
@@ -126,9 +130,12 @@ public class LoginFragment extends Fragment {
 
         SecondLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SecondLoginText =  databaseManager.login(SecondPlayerName.getText().toString(),SecondPlayerPassword.getText().toString(),1);
+                SecondLoginText = databaseManager.login(SecondPlayerName.getText().toString(),SecondPlayerPassword.getText().toString(),1);
                 tv2.setText(SecondLoginText);
-                ActionsAfterLoginPlayer2(v);
+                if (SecondLoginText.equals("Player logged in successfully"))
+                {
+                    ActionsAfterLoginPlayer2(v);
+                }
 
             }
         });

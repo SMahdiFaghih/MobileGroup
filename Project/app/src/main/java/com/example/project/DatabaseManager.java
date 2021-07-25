@@ -29,6 +29,10 @@ public class DatabaseManager
 
     public String signUp(String username, String password)
     {
+        if (username.isEmpty() || password.isEmpty())
+        {
+            return "You should fill both fields.";
+        }
         if (checkPlayerExists((username)))
         {
             return "Player exists with this username";
