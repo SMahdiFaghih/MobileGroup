@@ -74,13 +74,12 @@ public class LoginFragment extends Fragment {
         secondPlayerNameAfterLogin  = view.findViewById(R.id.nameString2);
         LogoutButton2 = view.findViewById(R.id.LogOut_Button2);
         password2 = view.findViewById(R.id.user2PasswordLine);
-
+        Button MenuButton = (Button) view.findViewById(R.id.MenuButton);
         if(databaseManager.getLoggedInPlayers()[0]!=null && databaseManager.getLoggedInPlayers()[1]!=null)
         {
             ActionsAfterLoginPlayer1(view);
             ActionsAfterLoginPlayer2(view);
-            Log.i(TAG,databaseManager.getLoggedInPlayers()[0].getUsername());
-            Log.i(TAG,databaseManager.getLoggedInPlayers()[1].getUsername());
+            MenuButton.setVisibility(view.VISIBLE);
         }
 
 
@@ -113,6 +112,10 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 firstLoginText = databaseManager.login(FirstPlayerName.getText().toString(),FirstPlayerPassword.getText().toString(),0);
                 tv1.setText(firstLoginText);
+                if(databaseManager.getLoggedInPlayers()[0]!=null && databaseManager.getLoggedInPlayers()[1]!=null)
+                {
+                    MenuButton.setVisibility(v.VISIBLE);
+                }
                 if (firstLoginText.equals("Player logged in successfully"))
                 {
                     ActionsAfterLoginPlayer1(view);
@@ -132,6 +135,10 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 SecondLoginText = databaseManager.login(SecondPlayerName.getText().toString(),SecondPlayerPassword.getText().toString(),1);
                 tv2.setText(SecondLoginText);
+                if(databaseManager.getLoggedInPlayers()[0]!=null && databaseManager.getLoggedInPlayers()[1]!=null)
+                {
+                    MenuButton.setVisibility(v.VISIBLE);
+                }
                 if (SecondLoginText.equals("Player logged in successfully"))
                 {
                     ActionsAfterLoginPlayer2(v);
@@ -139,7 +146,7 @@ public class LoginFragment extends Fragment {
 
             }
         });
-        Button MenuButton = (Button) view.findViewById(R.id.MenuButton);
+
         MenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(databaseManager.getLoggedInPlayers()[0]!=null && databaseManager.getLoggedInPlayers()[1]!=null)
