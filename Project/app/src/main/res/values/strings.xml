@@ -6,4 +6,5 @@
     <string name="draw">D</string>
     <string name="lose">L</string>
     <string name="win">W</string>
+    <string name="back">Back</string>
 </resources>
