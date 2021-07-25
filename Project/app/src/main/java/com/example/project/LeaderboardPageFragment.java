@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -29,7 +30,18 @@ public class LeaderboardPageFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_leaderboard_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_leaderboard_page, container, false);
+
+        Button backButton = (Button) view.findViewById(R.id.leaderboard_back_button);
+        backButton.setOnClickListener(v ->
+        {
+            Menu menu = new Menu();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, menu);
+            transaction.commit();
+        });
+
+        return view;
     }
 
     @Override

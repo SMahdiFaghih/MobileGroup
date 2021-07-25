@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Project</string>
     <string name="leaderboard">Leaderboard</string>
+    <string name="rank">Rank</string>
+    <string name="username">Username</string>
+    <string name="draw">D</string>
+    <string name="lose">L</string>
+    <string name="win">W</string>
+    <string name="back">Back</string>
 </resources>
