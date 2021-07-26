@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 public class Menu extends Fragment {
 
@@ -45,10 +44,13 @@ public class Menu extends Fragment {
                 transaction.commit();
             }
         });
-        Button Profile_Button = (Button) view.findViewById(R.id.Profile_Button);
+        Button Profile_Button = (Button) view.findViewById(R.id.Settings_Button);
         Profile_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                SettingsFragment settings = new SettingsFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, settings);
+                transaction.commit();
             }
         });
         Button LogOut_Button = (Button) view.findViewById(R.id.LogOut_Button);

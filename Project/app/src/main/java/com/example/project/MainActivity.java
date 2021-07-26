@@ -7,7 +7,8 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity
 {
-    private static MediaPlayer backgroundMusic;
+    public static MediaPlayer backgroundMusic;
+    public static MediaPlayer victorySound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity
         backgroundMusic = MediaPlayer.create(getApplicationContext(),R.raw.star_sky);
         backgroundMusic.setLooping(true);
         backgroundMusic.start();
+
+        victorySound = MediaPlayer.create(getApplicationContext(),R.raw.victory);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

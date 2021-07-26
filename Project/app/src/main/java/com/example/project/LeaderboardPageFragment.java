@@ -17,14 +17,12 @@ import java.util.ArrayList;
 
 public class LeaderboardPageFragment extends Fragment
 {
-    private static LeaderboardPageFragment instance;
     private ArrayList<Player> players;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        instance = this;
     }
 
     @Override
@@ -63,10 +61,5 @@ public class LeaderboardPageFragment extends Fragment
             fragmentTransaction.add(R.id.ranks, bookmarkFragment, "fragment " + player.getUsername());
         }
         fragmentTransaction.commit();
-    }
-
-    public static LeaderboardPageFragment getInstance()
-    {
-        return instance;
     }
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menuFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D7D6D6"
+    tools:context=".Menu">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_background_image"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:background="@drawable/leaderboard_background"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/settings"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="23sp"/>
+
+    </LinearLayout>
+
+    <Switch
+        android:id="@+id/music_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Background Music  "
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <Button
+        android:id="@+id/leaderboard_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp"
+        app:backgroundTint="#F7921D"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView">
+
+    </Button>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

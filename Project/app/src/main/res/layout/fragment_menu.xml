@@ -62,19 +62,19 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:backgroundTint="#F7921D"
-        app:layout_constraintBottom_toTopOf="@+id/Profile_Button"
+        app:layout_constraintBottom_toTopOf="@+id/Settings_Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/Profile_Button"
+        android:id="@+id/Settings_Button"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/profile"
+        android:text="@string/settings"
         android:textSize="30sp"
         android:textAllCaps="false"
         android:textColor="@color/black"

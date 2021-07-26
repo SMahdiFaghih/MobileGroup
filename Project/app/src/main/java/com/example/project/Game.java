@@ -189,6 +189,7 @@ public class Game extends Fragment
                     databaseManager.addGameResult(second,PlayerGameResult.LOSE);
                 }
                 gameEnded = true;
+                MainActivity.victorySound.start();
             }
             else
             {
