@@ -113,6 +113,14 @@ public class LoginFragment extends Fragment {
                 firstSignText = databaseManager.signUp(FirstPlayerName.getText().toString(),FirstPlayerPassword.getText().toString());
 
                 tv1.setText(firstSignText);
+                if (firstSignText.equals("Player added successfully"))
+                {
+                    tv1.setTextColor(getResources().getColor(R.color.Green));
+                }
+                else
+                {
+                    tv1.setTextColor(getResources().getColor(R.color.Red));
+                }
             }
         });
 
@@ -127,6 +135,11 @@ public class LoginFragment extends Fragment {
                 if (firstLoginText.equals("Player logged in successfully"))
                 {
                     ActionsAfterLoginPlayer1(view);
+                    tv1.setTextColor(getResources().getColor(R.color.Green));
+                }
+                else
+                {
+                    tv1.setTextColor(getResources().getColor(R.color.Red));
                 }
 
             }
@@ -135,7 +148,16 @@ public class LoginFragment extends Fragment {
         SecondSignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SecondSignText = databaseManager.signUp(SecondPlayerName.getText().toString(),SecondPlayerPassword.getText().toString());
+
                 tv2.setText(SecondSignText);
+                if (SecondSignText.equals("Player logged in successfully"))
+                {
+                    tv2.setTextColor(getResources().getColor(R.color.Green));
+                }
+                else
+                {
+                    tv2.setTextColor(getResources().getColor(R.color.Red));
+                }
             }
         });
 
@@ -150,6 +172,11 @@ public class LoginFragment extends Fragment {
                 if (SecondLoginText.equals("Player logged in successfully"))
                 {
                     ActionsAfterLoginPlayer2(v);
+                    tv2.setTextColor(getResources().getColor(R.color.Green));
+                }
+                else
+                {
+                    tv2.setTextColor(getResources().getColor(R.color.Red));
                 }
 
             }
