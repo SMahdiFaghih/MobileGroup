@@ -36,6 +36,8 @@ public class LoginFragment extends Fragment {
     TextView tv2;
     TextView passwordText1;
     TextView passwordText2;
+    TextView usernameText1;
+    TextView usernameText2;
     Button SecondSignUp;
     Button SecondLogin;
     private static final String TAG = "MyActivity";
@@ -68,9 +70,10 @@ public class LoginFragment extends Fragment {
 
         SecondLogin =  view.findViewById(R.id.user2Login);
         SecondSignUp =  view.findViewById(R.id.user2Sign);
+        usernameText1 = view.findViewById(R.id.name);
+        usernameText2 = view.findViewById(R.id.user2Name);
         passwordText1 = view.findViewById(R.id.password);
         passwordText2 = view.findViewById(R.id.user2Password);
-
 
         firstPlayerNameAfterLogin  = view.findViewById(R.id.nameString1);
         LogoutButton =  view.findViewById(R.id.LogOut_Button1);
@@ -170,6 +173,7 @@ public class LoginFragment extends Fragment {
     }
     public void ActionsAfterLoginPlayer1(View view)
     {
+        usernameText1.setVisibility(view.GONE);
         passwordText1.setVisibility(view.GONE);
         FirstPlayerName.setVisibility(view.GONE);
         firstPlayerNameAfterLogin.setVisibility(view.VISIBLE);
@@ -182,6 +186,7 @@ public class LoginFragment extends Fragment {
     }
     public void ActionAfterLogOutPlayer1(View view)
     {
+        usernameText1.setVisibility(view.VISIBLE);
         passwordText1.setVisibility(view.VISIBLE);
         FirstSignUp.setVisibility(view.VISIBLE);
         FirstPlayerPassword.setVisibility(view.VISIBLE);
@@ -194,6 +199,7 @@ public class LoginFragment extends Fragment {
     }
     public void ActionsAfterLoginPlayer2(View view)
     {
+        usernameText2.setVisibility(view.GONE);
         passwordText2.setVisibility(view.GONE);
         SecondPlayerName.setVisibility(view.GONE);
         secondPlayerNameAfterLogin.setVisibility(view.VISIBLE);
@@ -206,6 +212,7 @@ public class LoginFragment extends Fragment {
     }
     public void ActionsAfterLogOutPlayer2(View view)
     {
+        usernameText2.setVisibility(view.VISIBLE);
         passwordText2.setVisibility(view.VISIBLE);
         SecondPlayerName.setVisibility(view.VISIBLE);
         secondPlayerNameAfterLogin.setVisibility(view.GONE);

@@ -7,4 +7,11 @@
     <string name="lose">L</string>
     <string name="win">W</string>
     <string name="back">Back</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="player_1">Player 1</string>
+    <string name="player_2">Player 2</string>
+    <string name="sign_up">Sign-Up</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="log_out">Log out</string>
 </resources>

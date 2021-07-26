@@ -7,13 +7,14 @@
     tools:context=".LoginFragment">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/login_background_image"
+        android:alpha="0.8"
         android:scaleType="fitXY"
-        android:alpha="0.8">
-
-    </ImageView>
+        android:src="@drawable/login_background_image"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -21,9 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="Player 1"
+        android:text="@string/player_1"
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -86,10 +87,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:text="Player 2"
+        android:text="@string/player_2"
         android:textColor="@color/black"
-        android:textFontWeight="700"
-        android:textSize="22dp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/message1" />
@@ -144,9 +144,12 @@
         android:id="@+id/MenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:text="MAIN MENU"
+        android:text="@string/main_menu"
         android:visibility="gone"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        app:backgroundTintMode="multiply"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -158,21 +161,29 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="@color/black"
-        android:textFontWeight="700"
-        android:textSize="22dp"
+        android:maxLines="1"
+        android:textSize="30sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/nameLine"
-        app:layout_constraintEnd_toEndOf="@+id/nameLine"
-        app:layout_constraintStart_toEndOf="@+id/name"
-        app:layout_constraintTop_toTopOf="@+id/nameLine" />
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:autoSizeMaxTextSize="35sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/LogOut_Button1"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/LogOut_Button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
-        android:text="logOut"
+        android:text="@string/log_out"
         android:visibility="gone"
+        android:textAllCaps="false"
+        app:backgroundTintMode="multiply"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameLine" />
@@ -183,20 +194,30 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:maxLines="1"
+        android:textSize="30sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/user2NameLine"
-        app:layout_constraintEnd_toEndOf="@+id/user2NameLine"
-        app:layout_constraintStart_toEndOf="@+id/user2Name"
-        app:layout_constraintTop_toTopOf="@+id/user2NameLine" />
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:autoSizeMaxTextSize="35sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/LogOut_Button2"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/LogOut_Button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
-        android:text="LogOut"
+        android:text="@string/log_out"
         android:visibility="gone"
+        android:textAllCaps="false"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:backgroundTintMode="multiply"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user2NameLine" />
@@ -208,7 +229,10 @@
         android:layout_marginStart="76dp"
         android:layout_marginLeft="76dp"
         android:layout_marginTop="20dp"
-        android:text="Login"
+        android:textAllCaps="false"
+        app:backgroundTintMode="multiply"
+        app:backgroundTint="#FFFFFF"
+        android:text="@string/login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user2PasswordLine" />
 
@@ -219,7 +243,10 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="76dp"
         android:layout_marginRight="76dp"
-        android:text="Sign-Up"
+        android:textAllCaps="false"
+        app:backgroundTintMode="multiply"
+        app:backgroundTint="#FFFFFF"
+        android:text="@string/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user2PasswordLine" />
 
@@ -245,15 +272,19 @@
         android:text=""
         app:layout_constraintBottom_toBottomOf="@+id/nameLine"
         app:layout_constraintEnd_toEndOf="@+id/nameLine"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toEndOf="@+id/name"
-        app:layout_constraintTop_toTopOf="@+id/nameLine" />
+        app:layout_constraintTop_toTopOf="@+id/nameLine"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/user2Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Password"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:text="@string/password"
         app:layout_constraintBottom_toBottomOf="@+id/user2PasswordLine"
         app:layout_constraintStart_toStartOf="@+id/user2PasswordLine"
         app:layout_constraintTop_toTopOf="@+id/user2PasswordLine" />
@@ -263,7 +294,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Name"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:text="@string/username"
         app:layout_constraintBottom_toBottomOf="@+id/user2NameLine"
         app:layout_constraintStart_toStartOf="@+id/user2NameLine"
         app:layout_constraintTop_toTopOf="@+id/user2NameLine" />
@@ -298,7 +331,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Password"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:text="@string/password"
         app:layout_constraintBottom_toBottomOf="@+id/passwordLine"
         app:layout_constraintStart_toStartOf="@+id/passwordLine"
         app:layout_constraintTop_toTopOf="@+id/passwordLine" />
@@ -310,7 +345,10 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="76dp"
         android:layout_marginRight="76dp"
-        android:text="Sign-Up"
+        android:textAllCaps="false"
+        app:backgroundTintMode="multiply"
+        app:backgroundTint="#FFFFFF"
+        android:text="@string/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLine" />
 
@@ -319,7 +357,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Name"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:text="@string/username"
         app:layout_constraintBottom_toBottomOf="@+id/nameLine"
         app:layout_constraintStart_toStartOf="@+id/nameLine"
         app:layout_constraintTop_toTopOf="@+id/nameLine" />
@@ -331,7 +371,10 @@
         android:layout_marginStart="76dp"
         android:layout_marginLeft="76dp"
         android:layout_marginTop="20dp"
-        android:text="Login"
+        android:textAllCaps="false"
+        app:backgroundTintMode="multiply"
+        app:backgroundTint="#FFFFFF"
+        android:text="@string/login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLine" />
 
