@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class DatabaseManager
 {
@@ -112,6 +114,9 @@ public class DatabaseManager
             }
         }
         cursor.close();
+
+        Collections.sort(players);
+
         return players;
     }
 
