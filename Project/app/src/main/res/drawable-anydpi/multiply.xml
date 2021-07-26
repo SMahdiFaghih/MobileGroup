@@ -1,7 +1,7 @@
 <!-- drawable/close.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="45dp"
-    android:height="45dp"
+    android:width="60dp"
+    android:height="60dp"
     android:viewportWidth="24"
     android:viewportHeight="24"
     android:tint="#F90716"

@@ -129,12 +129,15 @@ public class DatabaseManager
         {
             case WIN:
                 values.put(FeedReaderContract.FeedEntry.COLUMN_WIN, player.getWins() + 1);
+                player.addWin();
                 break;
             case DRAW:
                 values.put(FeedReaderContract.FeedEntry.COLUMN_DRAW, player.getDraws() + 1);
+                player.addDraw();
                 break;
             case LOSE:
                 values.put(FeedReaderContract.FeedEntry.COLUMN_LOSE, player.getLoses() + 1);
+                player.addLose();
                 break;
         }
         db.update(FeedReaderContract.FeedEntry.TABLE, values, "username = ?", new String[]{player.getUsername()});

@@ -45,12 +45,27 @@ public class Player implements Comparable
         return wins;
     }
 
+    public void addWin()
+    {
+        wins += 1;
+    }
+
     public int getDraws()
     {
         return draws;
     }
 
+    public void addDraw()
+    {
+        draws += 1;
+    }
+
     public int getLoses() {
         return loses;
+    }
+
+    public void addLose()
+    {
+        loses += 1;
     }
 }

@@ -32,7 +32,7 @@ public class Menu extends Fragment {
             public void onClick(View v) {
                 Game game = new Game();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container,game);
+                transaction.replace(R.id.container, game);
                 transaction.commit();
             }
         });
@@ -41,7 +41,7 @@ public class Menu extends Fragment {
             public void onClick(View v) {
                 LeaderboardPageFragment LeaderBoard = new LeaderboardPageFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container,LeaderBoard);
+                transaction.replace(R.id.container, LeaderBoard);
                 transaction.commit();
             }
         });

@@ -1,7 +1,6 @@
 package com.example.project;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,51 +18,48 @@ import android.widget.TextView;
 import static com.example.project.R.drawable.circle;
 import static com.example.project.R.drawable.multiply;
 
-public class Game extends Fragment {
-    DatabaseManager databaseManager= DatabaseManager.getInstance();
-    Player first = databaseManager.getLoggedInPlayers()[0];
-    Player second  = databaseManager.getLoggedInPlayers()[1];
-    int currentIndex = 1;
-    int [][] game = new int[3][3];
-    private static final String TAG = "MyActivity";
-    boolean gameEnded= false;
-    boolean equal = false;
-    ImageButton button1;
-    ImageButton button2;
-    ImageButton button3;
-    ImageButton button4;
-    ImageButton button5;
-    ImageButton button6;
-    ImageButton button7;
-    ImageButton button8;
-    ImageButton button9;
-    TextView player1;
-    TextView player2;
-    TextView firstScore;
-    TextView secondScore;
-    Button back;
+public class Game extends Fragment
+{
+    private final DatabaseManager databaseManager= DatabaseManager.getInstance();
+    private final Player first = databaseManager.getLoggedInPlayers()[0];
+    private final Player second  = databaseManager.getLoggedInPlayers()[1];
+    private final int [][] game = new int[3][3];
+    private int currentIndex = 1;
+    private boolean gameEnded= false;
+    private boolean equal = false;
+    private ImageButton button1;
+    private ImageButton button2;
+    private ImageButton button3;
+    private ImageButton button4;
+    private ImageButton button5;
+    private ImageButton button6;
+    private ImageButton button7;
+    private ImageButton button8;
+    private ImageButton button9;
+    private TextView firstPlayerUsername;
+    private TextView secondPlayerUsername;
+    private TextView firstPlayerScore;
+    private TextView secondPlayerScore;
 
-
-
-
-    public Game() {
+    public Game()
+    {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
 
-        for (int i =0;i<3;i++)
+        for (int i=0; i<3; i++)
         {
-            for (int j=0;j<3;j++)
+            for (int j=0; j<3; j++)
             {
                 game[i][j] = 0;
             }
@@ -78,31 +73,29 @@ public class Game extends Fragment {
         button7 = view.findViewById(R.id.button7);
         button8 = view.findViewById(R.id.button8);
         button9 = view.findViewById(R.id.button9);
-        back = view.findViewById(R.id.back);
-        player1 = view.findViewById(R.id.FirstPLayerText);
-        player2 = view.findViewById(R.id.SecondPlayerText);
-        firstScore = view.findViewById(R.id.scoreOfFirst);
-        secondScore = view.findViewById(R.id.scoreOfSecond);
-        player1.setText(first.getUsername());
-        player1.setTextColor(Color.parseColor("#000000"));
-        player2.setTextColor(Color.parseColor("#AC9F9F"));
-        player2.setText(second.getUsername());
+        Button backButton = view.findViewById(R.id.back);
+        firstPlayerUsername = view.findViewById(R.id.FirstPLayerText);
+        secondPlayerUsername = view.findViewById(R.id.SecondPlayerText);
+        firstPlayerScore = view.findViewById(R.id.scoreOfFirst);
+        secondPlayerScore = view.findViewById(R.id.scoreOfSecond);
+        firstPlayerUsername.setText(first.getUsername());
+        firstPlayerUsername.setTextColor(Color.parseColor("#000000"));
+        secondPlayerUsername.setTextColor(Color.parseColor("#AC9F9F"));
+        secondPlayerUsername.setText(second.getUsername());
 
+        String text = "Wins: " + first.getWins();
+        firstPlayerScore.setText(text);
+        firstPlayerScore.setTextColor(Color.parseColor("#000000"));
 
+        String text2 = "Wins: " + second.getWins();
+        secondPlayerScore.setText(text2);
+        secondPlayerScore.setTextColor(Color.parseColor("#000000"));
 
-        firstScore.setText(String.valueOf(first.getWins()));
-        firstScore.setTextColor(Color.parseColor("#000000"));
-
-        secondScore.setText(String.valueOf(second.getWins()));
-        secondScore.setTextColor(Color.parseColor("#000000"));
-
-        back.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Menu menu = new Menu();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container,menu);
-                transaction.commit();
-            }
+        backButton.setOnClickListener(v -> {
+            Menu menu = new Menu();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container,menu);
+            transaction.commit();
         });
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +145,7 @@ public class Game extends Fragment {
         });
         return view;
     }
+
     public void buttonClicked(int index,ImageButton button){
         int row = Math.round(index/3);
         int column = index%3;
@@ -163,8 +157,8 @@ public class Game extends Fragment {
                 button.setImageDrawable(tempImage);
                 game[row][column] = 1;
                 currentIndex = 2;
-                player2.setTextColor(Color.parseColor("#000000"));
-                player1.setTextColor(Color.parseColor("#AC9F9F"));
+                secondPlayerUsername.setTextColor(Color.parseColor("#000000"));
+                firstPlayerUsername.setTextColor(Color.parseColor("#AC9F9F"));
             }
             else
             {
@@ -172,8 +166,8 @@ public class Game extends Fragment {
                 button.setImageDrawable(tempImage);
                 game[row][column] = 2;
                 currentIndex = 1;
-                player1.setTextColor(Color.parseColor("#000000"));
-                player2.setTextColor(Color.parseColor("#AC9F9F"));
+                firstPlayerUsername.setTextColor(Color.parseColor("#000000"));
+                secondPlayerUsername.setTextColor(Color.parseColor("#AC9F9F"));
             }
             if(((game[0][0] == game[0][1]) && (game[0][0] == game[0][2]) && game[0][0] !=0) ||
                     ((game[1][0] == game[1][1]) && (game[1][0] == game[1][2]) && game[1][0] !=0) ||
@@ -188,24 +182,13 @@ public class Game extends Fragment {
                 {
                     databaseManager.addGameResult(second,PlayerGameResult.WIN);
                     databaseManager.addGameResult(first,PlayerGameResult.LOSE);
-                    int score = Integer.parseInt(secondScore.getText().toString());
-                    score = score + 1;
-                    secondScore.setText(String.valueOf(score));
-
                 }
                 else
                 {
                     databaseManager.addGameResult(first,PlayerGameResult.WIN);
                     databaseManager.addGameResult(second,PlayerGameResult.LOSE);
-                    int score = Integer.parseInt(firstScore.getText().toString());
-                    score = score + 1;
-                    firstScore.setText(String.valueOf(score));
-
-
                 }
-
                 gameEnded = true;
-
             }
             else
             {
@@ -250,45 +233,47 @@ public class Game extends Fragment {
             }
              alert.setMessage("Do You Want To Play again?");
 
-            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    for (int i =0;i<3;i++)
+            alert.setPositiveButton("Ok", (dialog, whichButton) -> {
+
+                for (int i =0;i<3;i++)
+                {
+                    for (int j=0;j<3;j++)
                     {
-                        for (int j=0;j<3;j++)
-                        {
-                            game[i][j] = 0;
-                        }
+                        game[i][j] = 0;
                     }
-                    gameEnded = false;
-                    button1.setImageDrawable(null);
-                    button2.setImageDrawable(null);
-                    button3.setImageDrawable(null);
-                    button4.setImageDrawable(null);
-                    button5.setImageDrawable(null);
-                    button6.setImageDrawable(null);
-                    button7.setImageDrawable(null);
-                    button8.setImageDrawable(null);
-                    button9.setImageDrawable(null);
-                    equal = false;
-                    player1.setTextColor(Color.parseColor("#000000"));
-                    player2.setTextColor(Color.parseColor("#AC9F9F"));
-                    currentIndex = 1;
                 }
+                gameEnded = false;
+                button1.setImageDrawable(null);
+                button2.setImageDrawable(null);
+                button3.setImageDrawable(null);
+                button4.setImageDrawable(null);
+                button5.setImageDrawable(null);
+                button6.setImageDrawable(null);
+                button7.setImageDrawable(null);
+                button8.setImageDrawable(null);
+                button9.setImageDrawable(null);
+                equal = false;
+                firstPlayerUsername.setTextColor(Color.parseColor("#000000"));
+                secondPlayerUsername.setTextColor(Color.parseColor("#AC9F9F"));
+                currentIndex = 1;
+
+                String text = "Wins: " + first.getWins();
+                firstPlayerScore.setText(text);
+                firstPlayerScore.setTextColor(Color.parseColor("#000000"));
+
+                String text2 = "Wins: " + second.getWins();
+                secondPlayerScore.setText(text2);
+                secondPlayerScore.setTextColor(Color.parseColor("#000000"));
             });
 
-            alert.setNegativeButton("No",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            Menu menu = new Menu();
-                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.replace(R.id.container,menu);
-                            transaction.commit();
-                        }
-                    });
+            alert.setNegativeButton("No", (dialog, whichButton) -> {
+                Menu menu = new Menu();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container,menu);
+                transaction.commit();
+            });
 
             alert.show();
         }
-
-
     }
 }

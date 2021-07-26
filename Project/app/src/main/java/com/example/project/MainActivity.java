@@ -11,6 +11,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DatabaseManager.getInstance().initialize(this);
-        getSupportFragmentManager().beginTransaction().add(R.id.container,new LoginFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, new LoginFragment()).commit();
     }
 }
