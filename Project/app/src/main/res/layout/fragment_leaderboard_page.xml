@@ -154,7 +154,7 @@
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textColor="@color/black"
-        app:backgroundTint="#F7921D"
+        app:backgroundTint="@color/Orange"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView"
         app:layout_constraintStart_toStartOf="@+id/scrollView">
 

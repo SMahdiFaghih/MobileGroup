@@ -65,7 +65,7 @@
         android:textColor="@color/black"
         android:textSize="30sp"
         android:layout_marginBottom="20dp"
-        app:backgroundTint="#F7921D"
+        app:backgroundTint="@color/Orange"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView">
